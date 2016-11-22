@@ -2,9 +2,10 @@ package clock
 
 import scala.language.implicitConversions
 
-object TimeTests extends App{
-
-	AT ("12:00:00 am")
+object TimeTests extends Clock{
+	def main(args: Array[String]){
+		AT ("12:01:01 am")
+	}
 
 }
 

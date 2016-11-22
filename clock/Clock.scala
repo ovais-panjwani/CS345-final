@@ -5,13 +5,13 @@ import scala.util.Random
 import scala.language.implicitConversions
 
 // The class that holds all of the keywords for Clock and does the parsing
-class Clock extends App{
+class Clock{
 	// a random number generator for when the user requests a random number
 	val rnd = new Random()
 
 	implicit def string2Time(s: String): Time = {
-	    val pattern = "(\\d\\d):(\\d\\d):(\\d\\d) ([ap]m)".r
-	    val pattern(hour, minute, second, period) = s;
+	    val pattern = "(\\d\\d):(\\d\\d) ([ap]m)".r
+	    val pattern(hour, minute, period) = s;
 
 	    new Time(hour.toInt, minute.toInt, second.toInt, Period.parse(period))
   	}
