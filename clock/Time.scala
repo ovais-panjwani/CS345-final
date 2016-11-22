@@ -1,30 +1,29 @@
 package clock
 
-import java.text.SimpleDateFormat
+import scala.language.implicitConversions
 
 // overwrites order operations
-trait Ord {
+/*trait Ord {
   def < (that: Any): Boolean
   def <=(that: Any): Boolean =  (this < that) || (this == that)
   def > (that: Any): Boolean = !(this <= that)
   def >=(that: Any): Boolean = !(this < that)
+}*/
+
+
+class Time(hour: Int, minute: Int, second: Int, period: Period) {
+	override def toString() : String = (s"TIME $hour:$minute:$second $period")	    
 }
 
-// class that defines Time objects which are used to control execution order
-class TimeFormat(pattern: String) {
-  private val format = new SimpleDateFormat(pattern)
+abstract class Period {
+    case object AM extends Period
+    case object PM extends Period
+}
 
-  def parse(str: String): Time = {
-    // SimpleDateFormat is not thread-safe
-    val date = format.synchronized(format.parse(str))
-    if (date == null) {
-      throw new Exception("Unable to parse date-time: " + str)
-    } else {
-      Time.fromMilliseconds(date.getTime())
+object Period extends Period {
+    def parse(s: String): Period = s match {
+      case "am" => AM
+      case "pm" => PM
+      case _    => null
     }
-  }
-
-  def format(time: Time): String = {
-    format.synchronized(format.format(time.toDate))
-  }
 }

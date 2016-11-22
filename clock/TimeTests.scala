@@ -1,5 +1,10 @@
 package clock
 
-object TimeTests extends Any {
-	val a: Time = new Time()
+import scala.language.implicitConversions
+
+object TimeTests extends App{
+
+	AT ("12:00:00 am")
+
 }
+
