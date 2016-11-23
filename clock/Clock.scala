@@ -6,20 +6,22 @@ import scala.language.implicitConversions
 
 // The class that holds all of the keywords for Clock and does the parsing
 class Clock{
-	// a random number generator for when the user requests a random number
-	val rnd = new Random()
 
+	// an implicit conversion from string to Time object
 	implicit def string2Time(s: String): Time = {
 	    val pattern = "(\\d\\d):(\\d\\d) ([ap]m)".r
 	    val pattern(hour, minute, period) = s;
 
-	    new Time(hour.toInt, minute.toInt, second.toInt, Period.parse(period))
+	    new Time(hour.toInt, minute.toInt, Period.parse(period))
   	}
 
 	// the keyword AT sets the Time and therefore the order of execution for the instruction
 	object AT {
 		def apply(t: Time): Unit = {
-	      println(t)
+	      val hour: Int = t.hour
+	      val minute: Int = t.minute
+	      val period: Period = t.period
+	      println(hour + ":" + minute + " " + period)
 	    }
 	}
 
@@ -28,8 +30,11 @@ class Clock{
 		println(a)
 	}
 
-	class Time(hour: Int, minute: Int, second: Int, period: Period) {
-		override def toString() : String = (s"TIME $hour:$minute:$second $period")	    
+	class Time(h: Int, m: Int, p: Period) {
+		val hour: Int = h
+		val minute: Int = m
+		val period: Period = p
+		override def toString() : String = (s"TIME " + hour + ":" + minute + " " + period)	    
 	}
 
 	abstract class Period {
