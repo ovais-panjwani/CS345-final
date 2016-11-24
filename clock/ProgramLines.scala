@@ -15,8 +15,6 @@ class ProgramLines{
 	/* returns the currently set op */
 	def getOp = currentOp
 
-	var currentNumber = 0
-
 	def returnLine = {
 	    var lineToReturn: ClockOp = ClockNone
 
