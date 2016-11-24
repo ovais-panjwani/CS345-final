@@ -3,9 +3,13 @@ package clock
 // for the random number generator
 import scala.util.Random
 import scala.language.implicitConversions
+import scala.language.postfixOps
 
 // The class that holds all of the keywords for Clock and does the parsing
-class Clock{
+class Clock extends App{
+
+	val lineBuilder = new ProgramLines
+	val timeSlot = new TimeSlot
 
 	// an implicit conversion from string to Time object
 	implicit def string2Time(s: String): Time = {
@@ -23,11 +27,15 @@ class Clock{
 	      val period: Period = t.period
 	      println(hour + ":" + minute + " " + period)
 	    }
-	}
 
-	// print something
-	def PRINT(a: Any) = {
-		println(a)
+	    // print something
+		def PRINT(a: Any) = {
+			println(a)
+		}
+
+		def ADD(n: Int){
+
+		}
 	}
 
 	class Time(h: Int, m: Int, p: Period) {
@@ -49,4 +57,6 @@ class Clock{
 	      case _    => null
 	    }
 	}
+
+
 }
