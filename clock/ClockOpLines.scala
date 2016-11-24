@@ -19,6 +19,4 @@ object ClockOpLines {
   case class ClockDivision() extends ClockOp
 
   case class ClockNegation() extends ClockOp
-
-  case class ClockOutput() extends ClockOp
 }

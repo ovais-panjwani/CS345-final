@@ -12,7 +12,13 @@ object TimeSlot extends Clock{
 
 	val timeTable = new HashMap[Time, ClockOp]
 
-	def addLine(line: ProgramLines) = {
+	def setTime(newTime: Time) = {
+		currentTime = newTime
+	}
+
+	def addLine(lineBuilder: ProgramLines) = {
+		val line = lineBuilder.returnLine
+		timeTable += Tuple2(currentTime, line)
 
 	}
 

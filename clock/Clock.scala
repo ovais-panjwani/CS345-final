@@ -34,7 +34,8 @@ class Clock extends App{
 		}
 
 		def ADD(n: Int){
-
+			timeSlot addLine lineBuilder
+			lineBuilder setOp ClockOps.ADDITION
 		}
 	}
 
