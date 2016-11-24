@@ -22,10 +22,11 @@ class Clock extends App{
 	// the keyword AT sets the Time and therefore the order of execution for the instruction
 	object AT {
 		def apply(t: Time): Unit = {
-	      val hour: Int = t.hour
+			timeSlot setTime t
+	      /*val hour: Int = t.hour
 	      val minute: Int = t.minute
 	      val period: Period = t.period
-	      println(hour + ":" + minute + " " + period)
+	      println(hour + ":" + minute + " " + period)*/
 	    }
 
 	    // print something

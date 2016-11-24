@@ -5,8 +5,6 @@ object ClockOps {
 
   case object NONE extends ClockOpEnum
 
-  case object NUMBER extends ClockOpEnum
-
   case object GREATER extends ClockOpEnum
   case object GREATER_EQUAL extends ClockOpEnum
   case object LESS extends ClockOpEnum

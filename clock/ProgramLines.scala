@@ -15,11 +15,16 @@ class ProgramLines{
 	/* returns the currently set op */
 	def getOp = currentOp
 
+	var currentNumber = 0
+
+	def setValue(newValue: Int){
+		currentNumber = newValue
+	}
+
 	def returnLine = {
 	    var lineToReturn: ClockOp = ClockNone
 
 	    currentOp match {
-	      case NUMBER => lineToReturn = ClockNum(currentNumber)
 
 	      case GREATER => lineToReturn = ClockGreater()
 	      case GREATER_EQUAL => lineToReturn = ClockGreaterEqual()
@@ -27,12 +32,14 @@ class ProgramLines{
 	      case LESS_EQUAL => lineToReturn = ClockLessEqual()
 	      case EQUAL => lineToReturn = ClockEqual()
 
-	      case ADDITION => lineToReturn = ClockAddition()
+	      case ADDITION => lineToReturn = ClockAddition(currentNumber)
 	      case SUBTRACTION => lineToReturn = ClockSubtraction()
 	      case MULTIPLICATION => lineToReturn = ClockMultiplication()
 	      case DIVISION => lineToReturn = ClockDivision()
 
 	      case NEGATION => lineToReturn = ClockNegation()
+
+	      case NONE => throw new RuntimeException("Adding an empty line")
 
 	      /*case NONE =>
 	        if (!firstLine)
@@ -48,3 +55,4 @@ class ProgramLines{
 
 		lineToReturn
 	}
+}

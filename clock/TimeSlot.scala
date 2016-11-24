@@ -25,13 +25,48 @@ object TimeSlot extends Clock{
 	}
 
 	def runProgram() = {
+		var hour = 12
+		var minute = 0
+		var period = Period.parse("am")
 		val endTime = new Time(11, 59, Period.parse("pm"))
-		val runTime = new Time(12, 0, Period.parse("am"))
+		var runTime = new Time(hour, minute, period)
 		while (runTime != endTime){
+			println("I'm in")
 			val currentLine = timeTable(runTime)
+
+			currentLine match {
+				case ClockNone => // do nothing
+
+			    case ClockGreater(num: Int) => currentResult > num
+			    case ClockGreaterEqual(num: Int) => currentResult >= num
+			    case ClockLess(num: Int) => currentResult < num
+			    case ClockLessEqual(num: Int) => currentResult <= num
+			    case ClockEqual(num: Int) => currentResult == num
+
+			    case ClockAddition(num: Int) => currentResult += num
+			    case ClockSubtraction(num: Int) => currentResult -= num
+			    case ClockMultiplication(num: Int) => currentResult *= num
+			    case ClockDivision(num: Int) => currentResult /= num
+
+			    case ClockNegation() => currentResult = -currentResult
+			}
+			if (minute == 59){
+				minute = 0
+				hour+=1
+			}else{
+				minute+=1
+			}
+			if(hour > 12){
+				hour = 1
+				if(period == Period.parse("am")){
+					period = Period.parse("pm")
+				}else{
+					period = Period.parse("am")
+				}
+			} 
+			runTime = new Time(hour, minute, period)
+			println(runTime)
 		}
 	}
-
-	println(currentTime)
 
 }
