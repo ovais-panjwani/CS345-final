@@ -44,6 +44,12 @@ class Clock extends App{
 		val hour: Int = h
 		val minute: Int = m
 		val period: Period = p
+		def canEqual(a: Any) = a.isInstanceOf[Time]
+		override def equals(that: Any): Boolean = 
+			that match{
+				case that: Time => this.hour == that.hour && this.minute == that.minute && this.period == that.period
+				case _ => false
+			}
 		override def toString() : String = (s"TIME " + hour + ":" + minute + " " + period)	    
 	}
 
