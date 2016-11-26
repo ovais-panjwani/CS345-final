@@ -5,6 +5,10 @@ import scala.util.Random
 import scala.language.implicitConversions
 import scala.language.postfixOps
 
+import scala.collection.mutable.HashMap
+import ClockOpLines._
+import ClockOps._
+
 // The class that holds all of the keywords for Clock and does the parsing
 class Clock extends App{
 
@@ -21,7 +25,7 @@ class Clock extends App{
 
 	// the keyword AT sets the Time and therefore the order of execution for the instruction
 	object AT {
-		def apply(t: Time): Unit = {
+		def apply(t: timeSlot.Time): Unit = {
 			timeSlot setTime t
 	      /*val hour: Int = t.hour
 	      val minute: Int = t.minute
@@ -65,6 +69,4 @@ class Clock extends App{
 	      case _    => null
 	    }
 	}
-
-
 }
