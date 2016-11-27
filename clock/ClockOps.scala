@@ -38,7 +38,14 @@ object ClockOps {
   case object NOT extends ClockOpEnum
   case object NOT_CURRENT extends ClockOpEnum
 
+  case object APP_STRING extends ClockOpEnum
+  case object PREP_STRING extends ClockOpEnum
+  case object REPLACE_STRING extends ClockOpEnum
+  case object REM_STR_END extends ClockOpEnum
+  case object REM_STR_BEG extends ClockOpEnum
+
   case object OUTPUT_INT extends ClockOpEnum
   case object OUTPUT_DOUBLE extends ClockOpEnum
   case object OUTPUT_BOOL extends ClockOpEnum  
+  case object OUTPUT_STRING extends ClockOpEnum
 }

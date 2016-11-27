@@ -38,7 +38,14 @@ object ClockOpLines {
   case class ClockNot(bool: Boolean) extends ClockOp
   case class ClockNotCurrent() extends ClockOp
 
+  case class ClockAppString(str: String) extends ClockOp
+  case class ClockPrepString(str: String) extends ClockOp
+  case class ClockReplaceString(str: String) extends ClockOp
+  case class ClockRemoveStringEnd(num: Int) extends ClockOp
+  case class ClockRemoveStringBeg(num: Int) extends ClockOp
+
   case class ClockOutputInt() extends ClockOp
   case class ClockOutputDouble() extends ClockOp
   case class ClockOutputBool() extends ClockOp
+  case class ClockOutputString() extends ClockOp
 }

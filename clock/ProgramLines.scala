@@ -17,17 +17,22 @@ class ProgramLines{
 
 	var currentNumber = 0.0
 	var currentBool = false
+	var currentString = ""
 
-	def setValue(newValue: Int){
-		currentNumber = newValue.toDouble
+	def setNumber(newNum: Int){
+		currentNumber = newNum.toDouble
 	}
 
-	def setValue(newValue: Double){
-		currentNumber = newValue
+	def setNumber(newNum: Double){
+		currentNumber = newNum
 	}
 
 	def setBool(newBool: Boolean){
 		currentBool = newBool
+	}
+
+	def setString(newString: String){
+		currentString = newString
 	}
 
 	def returnLine = {
@@ -61,16 +66,23 @@ class ProgramLines{
 			case LESS_EQUAL_D => lineToReturn = ClockLessEqualD(currentNumber)
 			case EQUAL_D => lineToReturn = ClockEqualD(currentNumber)
 
-			case OUTPUT_INT => lineToReturn = ClockOutputInt()
-			case OUTPUT_DOUBLE => lineToReturn = ClockOutputDouble()
-			case OUTPUT_BOOL => lineToReturn = ClockOutputBool()
-
 			case NEGATION => lineToReturn = ClockNegation()
 
 			case AND => lineToReturn = ClockAnd(currentBool)
 			case OR => lineToReturn = ClockOr(currentBool)
 			case NOT => lineToReturn = ClockNot(currentBool)
 			case NOT_CURRENT => lineToReturn = ClockNotCurrent()
+
+			case APP_STRING => lineToReturn =  ClockAppString(currentString)
+			case PREP_STRING => lineToReturn =  ClockPrepString(currentString)
+			case REPLACE_STRING => lineToReturn =  ClockReplaceString(currentString)
+			case REM_STR_END => lineToReturn =  ClockRemoveStringEnd(currentNumber.toInt)
+			case REM_STR_BEG => lineToReturn =  ClockRemoveStringBeg(currentNumber.toInt)
+
+			case OUTPUT_INT => lineToReturn = ClockOutputInt()
+			case OUTPUT_DOUBLE => lineToReturn = ClockOutputDouble()
+			case OUTPUT_BOOL => lineToReturn = ClockOutputBool()
+			case OUTPUT_STRING => lineToReturn = ClockOutputString()
 
 			case NONE => throw new RuntimeException("Adding an empty line")
 		}
