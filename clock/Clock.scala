@@ -96,9 +96,20 @@ class Clock extends App{
 				timeSlot addLine lineBuilder
 			}
 
+			def MODULUS(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.MODULUS_D
+				timeSlot addLine lineBuilder
+			}
+
 			def RAISE_TO_POWER(n: Double) = {
 				lineBuilder setValue n
 				lineBuilder setOp ClockOps.RAISE_D
+				timeSlot addLine lineBuilder
+			}
+
+			def NEGATE() = {
+				lineBuilder setOp ClockOps.NEGATION
 				timeSlot addLine lineBuilder
 			}
 
@@ -123,7 +134,6 @@ class Clock extends App{
 		val hour: Int = h
 		val minute: Int = m
 		val period: Period = p
-		def canEqual(a: Any) = a.isInstanceOf[Time]
 		override def equals(that: Any): Boolean = 
 			that match{
 				case that: Time => this.hour == that.hour && this.minute == that.minute && this.period == that.period
