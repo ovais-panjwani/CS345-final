@@ -60,6 +60,12 @@ class Clock extends App{
 				timeSlot addLine lineBuilder
 			}
 
+			def RAISE_TO_POWER(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.RAISE
+				timeSlot addLine lineBuilder
+			}
+
 			def OUTPUT_RESULT() = {
 				lineBuilder setOp ClockOps.OUTPUT
 				timeSlot addLine lineBuilder
@@ -132,16 +138,17 @@ class Clock extends App{
 				currentLine match {
 					case ClockNone => // do nothing
 
+				    case ClockAddition(num: Int) => currentResult += num
+				    case ClockSubtraction(num: Int) => currentResult -= num
+				    case ClockMultiplication(num: Int) => currentResult *= num
+				    case ClockDivision(num: Int) => currentResult /= num
+				    case ClockRaise(num: Int) => currentResult = scala.math.pow(currentResult, num).toInt
+
 				    case ClockGreater(num: Int) => currentResult > num
 				    case ClockGreaterEqual(num: Int) => currentResult >= num
 				    case ClockLess(num: Int) => currentResult < num
 				    case ClockLessEqual(num: Int) => currentResult <= num
 				    case ClockEqual(num: Int) => currentResult == num
-
-				    case ClockAddition(num: Int) => currentResult += num
-				    case ClockSubtraction(num: Int) => currentResult -= num
-				    case ClockMultiplication(num: Int) => currentResult *= num
-				    case ClockDivision(num: Int) => currentResult /= num
 
 				    case ClockOutput() => println(currentResult)
 

@@ -26,16 +26,17 @@ class ProgramLines{
 
 	    currentOp match {
 
+			case ADDITION => lineToReturn = ClockAddition(currentNumber)
+			case SUBTRACTION => lineToReturn = ClockSubtraction(currentNumber)
+			case MULTIPLICATION => lineToReturn = ClockMultiplication(currentNumber)
+			case DIVISION => lineToReturn = ClockDivision(currentNumber)
+			case RAISE => lineToReturn = ClockRaise(currentNumber)
+
 			case GREATER => lineToReturn = ClockGreater(currentNumber)
 			case GREATER_EQUAL => lineToReturn = ClockGreaterEqual(currentNumber)
 			case LESS => lineToReturn = ClockLess(currentNumber)
 			case LESS_EQUAL => lineToReturn = ClockLessEqual(currentNumber)
 			case EQUAL => lineToReturn = ClockEqual(currentNumber)
-
-			case ADDITION => lineToReturn = ClockAddition(currentNumber)
-			case SUBTRACTION => lineToReturn = ClockSubtraction(currentNumber)
-			case MULTIPLICATION => lineToReturn = ClockMultiplication(currentNumber)
-			case DIVISION => lineToReturn = ClockDivision(currentNumber)
 
 			case OUTPUT => lineToReturn = ClockOutput()
 
