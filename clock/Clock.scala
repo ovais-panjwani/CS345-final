@@ -25,23 +25,32 @@ class Clock extends App{
 
 	// the keyword AT sets the Time and therefore the order of execution for the instruction
 	object AT {
-		def apply(t: timeSlot.Time): Unit = {
+		def apply(t: Time): Unit = {
 			timeSlot setTime t
+
+			AtContinue
 	      /*val hour: Int = t.hour
 	      val minute: Int = t.minute
 	      val period: Period = t.period
 	      println(hour + ":" + minute + " " + period)*/
 	    }
 
-	    // print something
-		def PRINT(a: Any) = {
-			println(a)
-		}
+	    object AtContinue {
+	    	// print something
+			def PRINT(a: Any) = {
+				println(a)
+			}
 
-		def ADD(n: Int){
-			timeSlot addLine lineBuilder
-			lineBuilder setOp ClockOps.ADDITION
-		}
+			def ADD(n: Int) = {
+				timeSlot addLine lineBuilder
+				lineBuilder setOp ClockOps.ADDITION
+			}
+	    }
+	    
+	}
+
+	def RUN = {
+		timeSlot runProgram
 	}
 
 	class Time(h: Int, m: Int, p: Period) {
@@ -69,4 +78,69 @@ class Clock extends App{
 	      case _    => null
 	    }
 	}
+
+	class TimeSlot{
+
+	var currentTime = new Time(12, 1, Period.parse("am"))
+	var currentResult = 0
+
+	val timeTable = new HashMap[Time, ClockOp]
+
+	def setTime(newTime: Time) = {
+		currentTime = newTime
+	}
+
+	def addLine(lineBuilder: ProgramLines) = {
+		val line = lineBuilder.returnLine
+		timeTable += Tuple2(currentTime, line)
+		println(currentResult)
+
+	}
+
+	def runProgram() = {
+		var hour = 12
+		var minute = 0
+		var period = Period.parse("am")
+		val endTime = new Time(11, 59, Period.parse("pm"))
+		var runTime = new Time(hour, minute, period)
+		while (runTime != endTime){
+			if(timeTable.contains(runTime)){
+				val currentLine = timeTable(runTime)
+				currentLine match {
+					case ClockNone => // do nothing
+
+				    case ClockGreater(num: Int) => currentResult > num
+				    case ClockGreaterEqual(num: Int) => currentResult >= num
+				    case ClockLess(num: Int) => currentResult < num
+				    case ClockLessEqual(num: Int) => currentResult <= num
+				    case ClockEqual(num: Int) => currentResult == num
+
+				    case ClockAddition(num: Int) => currentResult += num
+				    case ClockSubtraction(num: Int) => currentResult -= num
+				    case ClockMultiplication(num: Int) => currentResult *= num
+				    case ClockDivision(num: Int) => currentResult /= num
+
+				    case ClockNegation() => currentResult = -currentResult
+				}
+			}
+			if (minute == 59){
+				minute = 0
+				hour+=1
+				if(hour > 12){
+					hour = 1
+				}else if(hour == 12){
+					if(period == Period.parse("am")){
+						period = Period.parse("pm")
+					}else{
+						period = Period.parse("am")
+					}
+				}
+			}else{
+				minute+=1
+			}
+			runTime = new Time(hour, minute, period)
+			println(runTime)
+		}
+	}
+}
 }
