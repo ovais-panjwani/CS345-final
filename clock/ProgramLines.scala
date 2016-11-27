@@ -26,27 +26,28 @@ class ProgramLines{
 
 	    currentOp match {
 
-	      case GREATER => lineToReturn = ClockGreater()
-	      case GREATER_EQUAL => lineToReturn = ClockGreaterEqual()
-	      case LESS => lineToReturn = ClockLess()
-	      case LESS_EQUAL => lineToReturn = ClockLessEqual()
-	      case EQUAL => lineToReturn = ClockEqual()
 
-	      case ADDITION => lineToReturn = ClockAddition(currentNumber)
-	      case SUBTRACTION => lineToReturn = ClockSubtraction()
-	      case MULTIPLICATION => lineToReturn = ClockMultiplication()
-	      case DIVISION => lineToReturn = ClockDivision()
+			case GREATER => lineToReturn = ClockGreater(currentNumber)
+			case GREATER_EQUAL => lineToReturn = ClockGreaterEqual(currentNumber)
+			case LESS => lineToReturn = ClockLess(currentNumber)
+			case LESS_EQUAL => lineToReturn = ClockLessEqual(currentNumber)
+			case EQUAL => lineToReturn = ClockEqual(currentNumber)
 
-	      case NEGATION => lineToReturn = ClockNegation()
+			case ADDITION => lineToReturn = ClockAddition(currentNumber)
+			case SUBTRACTION => lineToReturn = ClockSubtraction(currentNumber)
+			case MULTIPLICATION => lineToReturn = ClockMultiplication(currentNumber)
+			case DIVISION => lineToReturn = ClockDivision(currentNumber)
 
-	      case NONE => throw new RuntimeException("Adding an empty line")
+			case NEGATION => lineToReturn = ClockNegation()
 
-	      /*case NONE =>
-	        if (!firstLine)
-	          throw new RuntimeException("Adding an empty line")
-	        else
-	          // first line meaning nothing supposed to be there
-	          firstLine = false*/
+			case NONE => throw new RuntimeException("Adding an empty line")
+
+			/*case NONE =>
+			if (!firstLine)
+			    throw new RuntimeException("Adding an empty line")
+			else
+			    // first line meaning nothing supposed to be there
+			    firstLine = false*/
 		}
 
 		// reset everything in prep for next line

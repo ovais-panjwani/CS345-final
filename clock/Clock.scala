@@ -25,7 +25,7 @@ class Clock extends App{
 
 	// the keyword AT sets the Time and therefore the order of execution for the instruction
 	object AT {
-		def apply(t: Time): Unit = {
+		def apply(t: Time) = {
 			timeSlot setTime t
 
 			AtContinue
@@ -36,14 +36,22 @@ class Clock extends App{
 	    }
 
 	    object AtContinue {
-	    	// print something
-			def PRINT(a: Any) = {
-				println(a)
+			def ADD(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.ADDITION
+				timeSlot addLine lineBuilder
 			}
 
-			def ADD(n: Int) = {
+			def SUBTRACT(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.SUBTRACTION
 				timeSlot addLine lineBuilder
-				lineBuilder setOp ClockOps.ADDITION
+			}
+
+			def MULTIPLY_BY(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.MULTIPLICATION
+				timeSlot addLine lineBuilder
 			}
 	    }
 	    
@@ -93,8 +101,6 @@ class Clock extends App{
 	def addLine(lineBuilder: ProgramLines) = {
 		val line = lineBuilder.returnLine
 		timeTable += Tuple2(currentTime, line)
-		println(currentResult)
-
 	}
 
 	def runProgram() = {
@@ -139,8 +145,8 @@ class Clock extends App{
 				minute+=1
 			}
 			runTime = new Time(hour, minute, period)
-			println(runTime)
 		}
+		println(currentResult)
 	}
 }
 }
