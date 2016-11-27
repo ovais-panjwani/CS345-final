@@ -16,5 +16,7 @@ object ClockOps {
   case object MULTIPLICATION extends ClockOpEnum
   case object DIVISION extends ClockOpEnum
 
+  case object OUTPUT extends ClockOpEnum
+
   case object NEGATION extends ClockOpEnum
 }

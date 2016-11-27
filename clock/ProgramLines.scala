@@ -23,7 +23,6 @@ class ProgramLines{
 
 	def returnLine = {
 	    var lineToReturn: ClockOp = ClockNone
-	    println("returning line")
 
 	    currentOp match {
 
@@ -37,6 +36,8 @@ class ProgramLines{
 			case SUBTRACTION => lineToReturn = ClockSubtraction(currentNumber)
 			case MULTIPLICATION => lineToReturn = ClockMultiplication(currentNumber)
 			case DIVISION => lineToReturn = ClockDivision(currentNumber)
+
+			case OUTPUT => lineToReturn = ClockOutput()
 
 			case NEGATION => lineToReturn = ClockNegation()
 

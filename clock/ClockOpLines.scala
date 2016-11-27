@@ -16,5 +16,7 @@ object ClockOpLines {
   case class ClockMultiplication(num: Int) extends ClockOp
   case class ClockDivision(num: Int) extends ClockOp
 
+  case class ClockOutput() extends ClockOp
+
   case class ClockNegation() extends ClockOp
 }

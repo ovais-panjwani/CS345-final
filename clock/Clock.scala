@@ -61,7 +61,8 @@ class Clock extends App{
 			}
 
 			def OUTPUT_RESULT() = {
-				println(timeSlot.currentResult)
+				lineBuilder setOp ClockOps.OUTPUT
+				timeSlot addLine lineBuilder
 			}
 	    }
 	    
@@ -81,6 +82,12 @@ class Clock extends App{
 				case that: Time => this.hour == that.hour && this.minute == that.minute && this.period == that.period
 				case _ => false
 			}
+		override def hashCode: Int = {
+			val prime = 61
+			var result = 1
+			result = (prime * hour) + minute
+			return result
+		}
 		override def toString() : String = (s"TIME " + hour + ":" + minute + " " + period)	    
 	}
 
@@ -110,7 +117,6 @@ class Clock extends App{
 
 	def addLine(lineBuilder: ProgramLines) = {
 		val line = lineBuilder.returnLine
-		println(line)
 		timeTable += Tuple2(currentTime, line)
 	}
 
@@ -121,9 +127,7 @@ class Clock extends App{
 		val endTime = new Time(11, 59, Period.parse("pm"))
 		var runTime = new Time(hour, minute, period)
 		while (runTime != endTime){
-			if(timeTable.contains(runTime)){
-				println("line matching")
-				println(currentResult)
+			if(timeTable contains runTime){
 				val currentLine = timeTable(runTime)
 				currentLine match {
 					case ClockNone => // do nothing
@@ -138,6 +142,8 @@ class Clock extends App{
 				    case ClockSubtraction(num: Int) => currentResult -= num
 				    case ClockMultiplication(num: Int) => currentResult *= num
 				    case ClockDivision(num: Int) => currentResult /= num
+
+				    case ClockOutput() => println(currentResult)
 
 				    case ClockNegation() => currentResult = -currentResult
 				}
@@ -159,8 +165,6 @@ class Clock extends App{
 			}
 			runTime = new Time(hour, minute, period)
 		}
-		println(timeTable.keySet)
-		println(currentResult)
 	}
 }
 }
