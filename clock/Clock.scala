@@ -66,8 +66,43 @@ class Clock extends App{
 				timeSlot addLine lineBuilder
 			}
 
-			def OUTPUT_RESULT() = {
-				lineBuilder setOp ClockOps.OUTPUT
+			def ADD(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.ADDITION_D
+				timeSlot addLine lineBuilder
+			}
+
+			def SUBTRACT(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.SUBTRACTION_D
+				timeSlot addLine lineBuilder
+			}
+
+			def MULTIPLY_BY(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.MULTIPLICATION_D
+				timeSlot addLine lineBuilder
+			}
+
+			def DIVIDE_BY(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.DIVISION_D
+				timeSlot addLine lineBuilder
+			}
+
+			def RAISE_TO_POWER(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.RAISE_D
+				timeSlot addLine lineBuilder
+			}
+
+			def OUTPUT_INT() = {
+				lineBuilder setOp ClockOps.OUTPUT_INT
+				timeSlot addLine lineBuilder
+			}
+
+			def OUTPUT_DOUBLE() = {
+				lineBuilder setOp ClockOps.OUTPUT_DOUBLE
 				timeSlot addLine lineBuilder
 			}
 	    }
@@ -113,7 +148,7 @@ class Clock extends App{
 	class TimeSlot{
 
 	var currentTime = new Time(12, 1, Period.parse("am"))
-	var currentResult = 0
+	var currentResult = 0.0
 
 	val timeTable = new HashMap[Time, ClockOp]
 
@@ -138,19 +173,26 @@ class Clock extends App{
 				currentLine match {
 					case ClockNone => // do nothing
 
-				    case ClockAddition(num: Int) => currentResult += num
-				    case ClockSubtraction(num: Int) => currentResult -= num
-				    case ClockMultiplication(num: Int) => currentResult *= num
-				    case ClockDivision(num: Int) => currentResult /= num
-				    case ClockRaise(num: Int) => currentResult = scala.math.pow(currentResult, num).toInt
+				    case ClockAddition(num: Int) => currentResult += num.toDouble
+				    case ClockSubtraction(num: Int) => currentResult -= num.toDouble
+				    case ClockMultiplication(num: Int) => currentResult *= num.toDouble
+				    case ClockDivision(num: Int) => currentResult /= num.toDouble
+				    case ClockRaise(num: Int) => currentResult = scala.math.pow(currentResult, num)
 
-				    case ClockGreater(num: Int) => currentResult > num
-				    case ClockGreaterEqual(num: Int) => currentResult >= num
-				    case ClockLess(num: Int) => currentResult < num
-				    case ClockLessEqual(num: Int) => currentResult <= num
-				    case ClockEqual(num: Int) => currentResult == num
+				    case ClockAdditionD(num: Double) => currentResult += num
+				    case ClockSubtractionD(num: Double) => currentResult -= num
+				    case ClockMultiplicationD(num: Double) => currentResult *= num
+				    case ClockDivisionD(num: Double) => currentResult /= num
+				    case ClockRaiseD(num: Double) => currentResult = scala.math.pow(currentResult, num)
 
-				    case ClockOutput() => println(currentResult)
+				    case ClockGreater(num: Double) => currentResult > num
+				    case ClockGreaterEqual(num: Double) => currentResult >= num
+				    case ClockLess(num: Double) => currentResult < num
+				    case ClockLessEqual(num: Double) => currentResult <= num
+				    case ClockEqual(num: Double) => currentResult == num
+
+				    case ClockOutputInt() => println(currentResult.toInt)
+				    case ClockOutputDouble() => println(currentResult.toDouble)
 
 				    case ClockNegation() => currentResult = -currentResult
 				}

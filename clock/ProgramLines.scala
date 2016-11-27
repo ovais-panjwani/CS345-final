@@ -15,9 +15,13 @@ class ProgramLines{
 	/* returns the currently set op */
 	def getOp = currentOp
 
-	var currentNumber = 0
+	var currentNumber = 0.0
 
 	def setValue(newValue: Int){
+		currentNumber = newValue.toDouble
+	}
+
+	def setValue(newValue: Double){
 		currentNumber = newValue
 	}
 
@@ -26,11 +30,17 @@ class ProgramLines{
 
 	    currentOp match {
 
-			case ADDITION => lineToReturn = ClockAddition(currentNumber)
-			case SUBTRACTION => lineToReturn = ClockSubtraction(currentNumber)
-			case MULTIPLICATION => lineToReturn = ClockMultiplication(currentNumber)
-			case DIVISION => lineToReturn = ClockDivision(currentNumber)
-			case RAISE => lineToReturn = ClockRaise(currentNumber)
+			case ADDITION => lineToReturn = ClockAddition(currentNumber.toInt)
+			case SUBTRACTION => lineToReturn = ClockSubtraction(currentNumber.toInt)
+			case MULTIPLICATION => lineToReturn = ClockMultiplication(currentNumber.toInt)
+			case DIVISION => lineToReturn = ClockDivision(currentNumber.toInt)
+			case RAISE => lineToReturn = ClockRaise(currentNumber.toInt)
+
+			case ADDITION_D => lineToReturn = ClockAdditionD(currentNumber)
+			case SUBTRACTION_D => lineToReturn = ClockSubtractionD(currentNumber)
+			case MULTIPLICATION_D => lineToReturn = ClockMultiplicationD(currentNumber)
+			case DIVISION_D => lineToReturn = ClockDivisionD(currentNumber)
+			case RAISE_D => lineToReturn = ClockRaiseD(currentNumber)
 
 			case GREATER => lineToReturn = ClockGreater(currentNumber)
 			case GREATER_EQUAL => lineToReturn = ClockGreaterEqual(currentNumber)
@@ -38,7 +48,8 @@ class ProgramLines{
 			case LESS_EQUAL => lineToReturn = ClockLessEqual(currentNumber)
 			case EQUAL => lineToReturn = ClockEqual(currentNumber)
 
-			case OUTPUT => lineToReturn = ClockOutput()
+			case OUTPUT_INT => lineToReturn = ClockOutputInt()
+			case OUTPUT_DOUBLE => lineToReturn = ClockOutputDouble()
 
 			case NEGATION => lineToReturn = ClockNegation()
 
