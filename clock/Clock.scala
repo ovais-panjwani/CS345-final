@@ -53,6 +53,16 @@ class Clock extends App{
 				lineBuilder setOp ClockOps.MULTIPLICATION
 				timeSlot addLine lineBuilder
 			}
+
+			def DIVIDE_BY(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.DIVISION
+				timeSlot addLine lineBuilder
+			}
+
+			def OUTPUT_RESULT() = {
+				println(timeSlot.currentResult)
+			}
 	    }
 	    
 	}
@@ -100,6 +110,7 @@ class Clock extends App{
 
 	def addLine(lineBuilder: ProgramLines) = {
 		val line = lineBuilder.returnLine
+		println(line)
 		timeTable += Tuple2(currentTime, line)
 	}
 
@@ -111,6 +122,8 @@ class Clock extends App{
 		var runTime = new Time(hour, minute, period)
 		while (runTime != endTime){
 			if(timeTable.contains(runTime)){
+				println("line matching")
+				println(currentResult)
 				val currentLine = timeTable(runTime)
 				currentLine match {
 					case ClockNone => // do nothing
@@ -146,6 +159,7 @@ class Clock extends App{
 			}
 			runTime = new Time(hour, minute, period)
 		}
+		println(timeTable.keySet)
 		println(currentResult)
 	}
 }

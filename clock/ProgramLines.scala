@@ -23,9 +23,9 @@ class ProgramLines{
 
 	def returnLine = {
 	    var lineToReturn: ClockOp = ClockNone
+	    println("returning line")
 
 	    currentOp match {
-
 
 			case GREATER => lineToReturn = ClockGreater(currentNumber)
 			case GREATER_EQUAL => lineToReturn = ClockGreaterEqual(currentNumber)
