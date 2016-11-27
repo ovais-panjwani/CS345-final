@@ -27,12 +27,7 @@ class Clock extends App{
 	object AT {
 		def apply(t: Time) = {
 			timeSlot setTime t
-
 			AtContinue
-	      /*val hour: Int = t.hour
-	      val minute: Int = t.minute
-	      val period: Period = t.period
-	      println(hour + ":" + minute + " " + period)*/
 	    }
 
 	    object AtContinue {
@@ -72,6 +67,36 @@ class Clock extends App{
 				timeSlot addLine lineBuilder
 			}
 
+			def GREATER_THAN(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.GREATER 
+				timeSlot addLine lineBuilder
+			}
+
+			def GREATER_THAN_EQUAL(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.GREATER_EQUAL
+				timeSlot addLine lineBuilder
+			}
+
+			def LESS_THAN(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.LESS
+				timeSlot addLine lineBuilder
+			}
+
+			def LESS_THAN_EQUAL(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.LESS_EQUAL
+				timeSlot addLine lineBuilder
+			}
+
+			def EQUAL(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.EQUAL
+				timeSlot addLine lineBuilder
+			}
+
 			def ADD(n: Double) = {
 				lineBuilder setValue n
 				lineBuilder setOp ClockOps.ADDITION_D
@@ -108,6 +133,36 @@ class Clock extends App{
 				timeSlot addLine lineBuilder
 			}
 
+			def GREATER_THAN_D(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.GREATER 
+				timeSlot addLine lineBuilder
+			}
+
+			def GREATER_THAN_EQUAL_D(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.GREATER_EQUAL
+				timeSlot addLine lineBuilder
+			}
+
+			def LESS_THAN_D(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.LESS
+				timeSlot addLine lineBuilder
+			}
+
+			def LESS_THAN_EQUAL_D(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.LESS_EQUAL
+				timeSlot addLine lineBuilder
+			}
+
+			def EQUAL_D(n: Double) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.EQUAL
+				timeSlot addLine lineBuilder
+			}
+
 			def NEGATE() = {
 				lineBuilder setOp ClockOps.NEGATION
 				timeSlot addLine lineBuilder
@@ -120,6 +175,11 @@ class Clock extends App{
 
 			def OUTPUT_DOUBLE() = {
 				lineBuilder setOp ClockOps.OUTPUT_DOUBLE
+				timeSlot addLine lineBuilder
+			}
+
+			def OUTPUT_BOOLEAN() = {
+				lineBuilder setOp ClockOps.OUTPUT_BOOL
 				timeSlot addLine lineBuilder
 			}
 	    }
@@ -187,7 +247,7 @@ class Clock extends App{
 	class TimeSlot{
 
 	var currentTime = new Time(12, 1, Period.parse("am"))
-	var currentResult = 0.0
+	var currentNumber = 0.0
 	var currentBoolean = false
 	var currentString = ""
 
@@ -214,30 +274,37 @@ class Clock extends App{
 				currentLine match {
 					case ClockNone => // do nothing
 
-				    case ClockAddition(num: Int) => currentResult += num.toDouble
-				    case ClockSubtraction(num: Int) => currentResult -= num.toDouble
-				    case ClockMultiplication(num: Int) => currentResult *= num.toDouble
-				    case ClockDivision(num: Int) => currentResult /= num.toDouble
-				    case ClockModulus(num: Int) => currentResult %= num.toDouble
-				    case ClockRaise(num: Int) => currentResult = scala.math.pow(currentResult, num)
+				    case ClockAddition(num: Int) => currentNumber += num.toDouble
+				    case ClockSubtraction(num: Int) => currentNumber -= num.toDouble
+				    case ClockMultiplication(num: Int) => currentNumber *= num.toDouble
+				    case ClockDivision(num: Int) => currentNumber /= num.toDouble
+				    case ClockModulus(num: Int) => currentNumber %= num.toDouble
+				    case ClockRaise(num: Int) => currentNumber = scala.math.pow(currentNumber, num)
 
-				    case ClockAdditionD(num: Double) => currentResult += num
-				    case ClockSubtractionD(num: Double) => currentResult -= num
-				    case ClockMultiplicationD(num: Double) => currentResult *= num
-				    case ClockDivisionD(num: Double) => currentResult /= num
-				    case ClockModulusD(num: Double) => currentResult %= num
-				    case ClockRaiseD(num: Double) => currentResult = scala.math.pow(currentResult, num)
+				    case ClockAdditionD(num: Double) => currentNumber += num
+				    case ClockSubtractionD(num: Double) => currentNumber -= num
+				    case ClockMultiplicationD(num: Double) => currentNumber *= num
+				    case ClockDivisionD(num: Double) => currentNumber /= num
+				    case ClockModulusD(num: Double) => currentNumber %= num
+				    case ClockRaiseD(num: Double) => currentNumber = scala.math.pow(currentNumber, num)
 
-				    case ClockGreater(num: Double) => currentResult > num
-				    case ClockGreaterEqual(num: Double) => currentResult >= num
-				    case ClockLess(num: Double) => currentResult < num
-				    case ClockLessEqual(num: Double) => currentResult <= num
-				    case ClockEqual(num: Double) => currentResult == num
+				    case ClockGreater(num: Int) => currentBoolean = currentNumber > num.toDouble
+				    case ClockGreaterEqual(num: Int) => currentBoolean = currentNumber >= num.toDouble
+				    case ClockLess(num: Int) => currentBoolean = currentNumber < num.toDouble
+				    case ClockLessEqual(num: Int) => currentBoolean = currentNumber <= num.toDouble
+				    case ClockEqual(num: Int) => currentBoolean = currentNumber == num.toDouble
 
-				    case ClockOutputInt() => println(currentResult.toInt)
-				    case ClockOutputDouble() => println(currentResult.toDouble)
+				    case ClockGreaterD(num: Double) => currentBoolean = currentNumber > num
+				    case ClockGreaterEqualD(num: Double) => currentBoolean = currentNumber >= num
+				    case ClockLessD(num: Double) => currentBoolean = currentNumber < num
+				    case ClockLessEqualD(num: Double) => currentBoolean = currentNumber <= num
+				    case ClockEqualD(num: Double) => currentBoolean = currentNumber == num
 
-				    case ClockNegation() => currentResult = -currentResult
+				    case ClockOutputInt() => println(currentNumber.toInt)
+				    case ClockOutputDouble() => println(currentNumber.toDouble)
+				    case ClockOutputBool() => println(currentBoolean)
+
+				    case ClockNegation() => currentNumber = -currentNumber
 				}
 			}
 			if (minute == 59){

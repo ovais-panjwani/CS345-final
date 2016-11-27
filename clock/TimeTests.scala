@@ -16,6 +16,10 @@ object TimeTests extends Clock{
 	AT ("02:00 am") MODULUS 5;
 	AT ("02:02 am") OUTPUT_DOUBLE;
 	AT ("02:01 am") NEGATE;
+	AT ("03:15 am") GREATER_THAN 10;
+	AT ("03:45 am") LESS_THAN_EQUAL 10;
+	AT ("03:30 am") OUTPUT_BOOLEAN;
+	AT ("04:00 am") OUTPUT_BOOLEAN;
 	RUN;
 	val a = new Time(12, 1, Period.parse("am"))
 	val b = new Time(12, 2, Period.parse("am"))

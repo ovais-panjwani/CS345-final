@@ -25,8 +25,15 @@ object ClockOps {
   case object LESS_EQUAL extends ClockOpEnum
   case object EQUAL extends ClockOpEnum
 
+  case object GREATER_D extends ClockOpEnum
+  case object GREATER_EQUAL_D extends ClockOpEnum
+  case object LESS_D extends ClockOpEnum
+  case object LESS_EQUAL_D extends ClockOpEnum
+  case object EQUAL_D extends ClockOpEnum
+
   case object OUTPUT_INT extends ClockOpEnum
   case object OUTPUT_DOUBLE extends ClockOpEnum
+  case object OUTPUT_BOOL extends ClockOpEnum
 
   case object NEGATION extends ClockOpEnum
 }

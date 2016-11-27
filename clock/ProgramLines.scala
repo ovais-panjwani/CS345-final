@@ -44,25 +44,25 @@ class ProgramLines{
 			case MODULUS_D => lineToReturn = ClockModulusD(currentNumber)
 			case RAISE_D => lineToReturn = ClockRaiseD(currentNumber)
 
-			case GREATER => lineToReturn = ClockGreater(currentNumber)
-			case GREATER_EQUAL => lineToReturn = ClockGreaterEqual(currentNumber)
-			case LESS => lineToReturn = ClockLess(currentNumber)
-			case LESS_EQUAL => lineToReturn = ClockLessEqual(currentNumber)
-			case EQUAL => lineToReturn = ClockEqual(currentNumber)
+			case GREATER => lineToReturn = ClockGreater(currentNumber.toInt)
+			case GREATER_EQUAL => lineToReturn = ClockGreaterEqual(currentNumber.toInt)
+			case LESS => lineToReturn = ClockLess(currentNumber.toInt)
+			case LESS_EQUAL => lineToReturn = ClockLessEqual(currentNumber.toInt)
+			case EQUAL => lineToReturn = ClockEqual(currentNumber.toInt)
+
+			case GREATER_D => lineToReturn = ClockGreaterD(currentNumber)
+			case GREATER_EQUAL_D => lineToReturn = ClockGreaterEqualD(currentNumber)
+			case LESS_D => lineToReturn = ClockLessD(currentNumber)
+			case LESS_EQUAL_D => lineToReturn = ClockLessEqualD(currentNumber)
+			case EQUAL_D => lineToReturn = ClockEqualD(currentNumber)
 
 			case OUTPUT_INT => lineToReturn = ClockOutputInt()
 			case OUTPUT_DOUBLE => lineToReturn = ClockOutputDouble()
+			case OUTPUT_BOOL => lineToReturn = ClockOutputBool()
 
 			case NEGATION => lineToReturn = ClockNegation()
 
 			case NONE => throw new RuntimeException("Adding an empty line")
-
-			/*case NONE =>
-			if (!firstLine)
-			    throw new RuntimeException("Adding an empty line")
-			else
-			    // first line meaning nothing supposed to be there
-			    firstLine = false*/
 		}
 
 		// reset everything in prep for next line
