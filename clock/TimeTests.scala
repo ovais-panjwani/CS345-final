@@ -20,6 +20,12 @@ object TimeTests extends Clock{
 	AT ("03:45 am") LESS_THAN_EQUAL 10;
 	AT ("03:30 am") OUTPUT_BOOLEAN;
 	AT ("04:00 am") OUTPUT_BOOLEAN;
+	AT ("04:15 am") NOT_CURRENT;
+	AT ("04:30 am") OUTPUT_BOOLEAN;
+	AT ("04:45 am") NOT true;
+	AT ("05:00 am") OUTPUT_BOOLEAN;
+	AT ("05:15 am") OR true;
+	AT ("05:30 am") OUTPUT_BOOLEAN;
 	RUN;
 	val a = new Time(12, 1, Period.parse("am"))
 	val b = new Time(12, 2, Period.parse("am"))

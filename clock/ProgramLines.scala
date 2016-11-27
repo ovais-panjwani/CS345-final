@@ -16,6 +16,7 @@ class ProgramLines{
 	def getOp = currentOp
 
 	var currentNumber = 0.0
+	var currentBool = false
 
 	def setValue(newValue: Int){
 		currentNumber = newValue.toDouble
@@ -23,6 +24,10 @@ class ProgramLines{
 
 	def setValue(newValue: Double){
 		currentNumber = newValue
+	}
+
+	def setBool(newBool: Boolean){
+		currentBool = newBool
 	}
 
 	def returnLine = {
@@ -61,6 +66,11 @@ class ProgramLines{
 			case OUTPUT_BOOL => lineToReturn = ClockOutputBool()
 
 			case NEGATION => lineToReturn = ClockNegation()
+
+			case AND => lineToReturn = ClockAnd(currentBool)
+			case OR => lineToReturn = ClockOr(currentBool)
+			case NOT => lineToReturn = ClockNot(currentBool)
+			case NOT_CURRENT => lineToReturn = ClockNotCurrent()
 
 			case NONE => throw new RuntimeException("Adding an empty line")
 		}

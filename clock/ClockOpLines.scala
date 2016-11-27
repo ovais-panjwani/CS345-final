@@ -31,9 +31,14 @@ object ClockOpLines {
   case class ClockLessEqualD(num: Double) extends ClockOp
   case class ClockEqualD(num: Double) extends ClockOp
 
+  case class ClockNegation() extends ClockOp
+
+  case class ClockAnd(bool: Boolean) extends ClockOp
+  case class ClockOr(bool: Boolean) extends ClockOp
+  case class ClockNot(bool: Boolean) extends ClockOp
+  case class ClockNotCurrent() extends ClockOp
+
   case class ClockOutputInt() extends ClockOp
   case class ClockOutputDouble() extends ClockOp
   case class ClockOutputBool() extends ClockOp
-
-  case class ClockNegation() extends ClockOp
 }

@@ -168,6 +168,29 @@ class Clock extends App{
 				timeSlot addLine lineBuilder
 			}
 
+			def AND(b: Boolean) = {
+				lineBuilder setBool b
+				lineBuilder setOp ClockOps.AND
+				timeSlot addLine lineBuilder
+			}
+
+			def OR(b: Boolean) = {
+				lineBuilder setBool b
+				lineBuilder setOp ClockOps.OR
+				timeSlot addLine lineBuilder
+			}
+
+			def NOT(b: Boolean) = {
+				lineBuilder setBool b
+				lineBuilder setOp ClockOps.NOT
+				timeSlot addLine lineBuilder
+			}
+
+			def NOT_CURRENT() = {
+				lineBuilder setOp ClockOps.NOT_CURRENT
+				timeSlot addLine lineBuilder
+			}
+
 			def OUTPUT_INT() = {
 				lineBuilder setOp ClockOps.OUTPUT_INT
 				timeSlot addLine lineBuilder
@@ -300,11 +323,16 @@ class Clock extends App{
 				    case ClockLessEqualD(num: Double) => currentBoolean = currentNumber <= num
 				    case ClockEqualD(num: Double) => currentBoolean = currentNumber == num
 
+				    case ClockNegation() => currentNumber = -currentNumber
+
+				    case ClockAnd(bool: Boolean) => currentBoolean &= bool
+				    case ClockOr(bool: Boolean) => currentBoolean |= bool
+				    case ClockNot(bool: Boolean) => currentBoolean = !bool
+				    case ClockNotCurrent() => currentBoolean = !currentBoolean
+
 				    case ClockOutputInt() => println(currentNumber.toInt)
 				    case ClockOutputDouble() => println(currentNumber.toDouble)
 				    case ClockOutputBool() => println(currentBoolean)
-
-				    case ClockNegation() => currentNumber = -currentNumber
 				}
 			}
 			if (minute == 59){
