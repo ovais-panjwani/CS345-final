@@ -66,6 +66,12 @@ class Clock extends App{
 				timeSlot addLine lineBuilder
 			}
 
+			def MODULUS(n: Int) = {
+				lineBuilder setValue n
+				lineBuilder setOp ClockOps.MODULUS
+				timeSlot addLine lineBuilder
+			}
+
 			def ADD(n: Double) = {
 				lineBuilder setValue n
 				lineBuilder setOp ClockOps.ADDITION_D
@@ -202,12 +208,14 @@ class Clock extends App{
 				    case ClockSubtraction(num: Int) => currentResult -= num.toDouble
 				    case ClockMultiplication(num: Int) => currentResult *= num.toDouble
 				    case ClockDivision(num: Int) => currentResult /= num.toDouble
+				    case ClockModulus(num: Int) => currentResult %= num.toDouble
 				    case ClockRaise(num: Int) => currentResult = scala.math.pow(currentResult, num)
 
 				    case ClockAdditionD(num: Double) => currentResult += num
 				    case ClockSubtractionD(num: Double) => currentResult -= num
 				    case ClockMultiplicationD(num: Double) => currentResult *= num
 				    case ClockDivisionD(num: Double) => currentResult /= num
+				    case ClockModulusD(num: Double) => currentResult %= num
 				    case ClockRaiseD(num: Double) => currentResult = scala.math.pow(currentResult, num)
 
 				    case ClockGreater(num: Double) => currentResult > num

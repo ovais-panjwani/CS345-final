@@ -9,12 +9,14 @@ object ClockOpLines {
   case class ClockSubtraction(num: Int) extends ClockOp
   case class ClockMultiplication(num: Int) extends ClockOp
   case class ClockDivision(num: Int) extends ClockOp
+  case class ClockModulus(num: Int) extends ClockOp
   case class ClockRaise(num: Int) extends ClockOp
 
   case class ClockAdditionD(num: Double) extends ClockOp
   case class ClockSubtractionD(num: Double) extends ClockOp
   case class ClockMultiplicationD(num: Double) extends ClockOp
   case class ClockDivisionD(num: Double) extends ClockOp
+  case class ClockModulusD(num: Double) extends ClockOp
   case class ClockRaiseD(num: Double) extends ClockOp
 
   case class ClockGreater(num: Double) extends ClockOp

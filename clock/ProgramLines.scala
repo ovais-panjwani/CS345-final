@@ -34,12 +34,14 @@ class ProgramLines{
 			case SUBTRACTION => lineToReturn = ClockSubtraction(currentNumber.toInt)
 			case MULTIPLICATION => lineToReturn = ClockMultiplication(currentNumber.toInt)
 			case DIVISION => lineToReturn = ClockDivision(currentNumber.toInt)
+			case MODULUS => lineToReturn = ClockModulus(currentNumber.toInt)
 			case RAISE => lineToReturn = ClockRaise(currentNumber.toInt)
 
 			case ADDITION_D => lineToReturn = ClockAdditionD(currentNumber)
 			case SUBTRACTION_D => lineToReturn = ClockSubtractionD(currentNumber)
 			case MULTIPLICATION_D => lineToReturn = ClockMultiplicationD(currentNumber)
 			case DIVISION_D => lineToReturn = ClockDivisionD(currentNumber)
+			case MODULUS_D => lineToReturn = ClockModulusD(currentNumber)
 			case RAISE_D => lineToReturn = ClockRaiseD(currentNumber)
 
 			case GREATER => lineToReturn = ClockGreater(currentNumber)
