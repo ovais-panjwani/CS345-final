@@ -123,6 +123,29 @@ class Clock extends App{
 				case that: Time => this.hour == that.hour && this.minute == that.minute && this.period == that.period
 				case _ => false
 			}
+		def < (that: Any): Boolean = 
+			that match{
+				case that: Time => (((this.hour == 12) && (this.period == Period.parse("am"))) && ((that.hour != 12) || (that.period == Period.parse("pm")))) ||
+					((this.period == Period.parse("am")) && (that.period == Period.parse("pm"))) ||
+					(((that.hour != 12) && (that.period != Period.parse("am"))) && (this.period == that.period) && (this.hour < that.hour)) || 
+					((this.period == that.period) && (this.hour == that.hour) && (this.minute < that.minute))
+				case _ => false
+			}
+		def <=(that: Any): Boolean = 
+			that match{
+				case that: Time => ((this < that) || (this == that))
+				case _ => false
+			}
+  		def > (that: Any): Boolean = 
+  			that match{
+  				case that: Time => !(this <= that)
+  				case _ => false
+  			}
+  		def >=(that: Any): Boolean = 
+  			that match{
+  				case that: Time => !(this < that)
+  				case _ => false
+  			}
 		override def hashCode: Int = {
 			val prime = 61
 			var result = 1
@@ -149,6 +172,8 @@ class Clock extends App{
 
 	var currentTime = new Time(12, 1, Period.parse("am"))
 	var currentResult = 0.0
+	var currentBoolean = false
+	var currentString = ""
 
 	val timeTable = new HashMap[Time, ClockOp]
 
