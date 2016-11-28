@@ -25,23 +25,26 @@ class Clock extends App{
 
 	// the keyword AT sets the Time and therefore the order of execution for the instruction
 	object AT {
-		var currentTime = new Time(12, 0, Period.parse("am"))
+		var currTime = new Time(12, 0, Period.parse("am"))
 		var currentOp: ClockOpEnum = NONE
 		var currentNum = 0.0
 		var currentBool = false
-		var currentString = ""
+		var currentStr = ""
 
 		def apply(t: Time) = {
 			timeSlot setTime t
-			currentTime = t
+			currTime = t
 			AtContinue
 	    }
 
+	    // all the commands that can be executed
 	    object AtContinue {
 			def ADD(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.ADDITION
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.ADDITION
+				CommandContinue
 			}
 
 			def SUBTRACT(n: Int) = {
@@ -255,16 +258,24 @@ class Clock extends App{
 			object CommandContinue {
 				def FOR(n: Int) = {
 					loopTimes = n
-					println(loopTimes)
 					ForContinue
 			    }
 			    object ForContinue{
 			    	def MINUTES() = {
 			    		var a = 0
-			    		for (a <- 1 to loopTimes){
-			    			currentTime++;
-			    			println(currentTime)
-			    			timeSlot setTime currentTime
+			    		for (a <- 1 until loopTimes){
+			    			currTime++;
+			    			timeSlot setTime currTime
+			    			lineBuilder setOp currentOp
+			    			timeSlot addLine lineBuilder
+			    		}
+			    	}
+
+			    	def HOUR() = {
+			    		loopTimes *= 60
+			    		for (a <- 1 until loopTimes){
+			    			currTime++;
+			    			timeSlot setTime currTime
 			    			lineBuilder setOp currentOp
 			    			timeSlot addLine lineBuilder
 			    		}
@@ -273,14 +284,15 @@ class Clock extends App{
 			    	def HOURS() = {
 			    		loopTimes *= 60
 			    		for (a <- 1 until loopTimes){
-			    			currentTime++;
-			    			timeSlot setTime currentTime
+			    			currTime++;
+			    			timeSlot setTime currTime
+			    			lineBuilder setOp currentOp
 			    			timeSlot addLine lineBuilder
 			    		}
 			    	}
 			    }
 
-			    def IF(b: Boolean) = {
+			    /*def IF(b: Boolean) = {
 
 			    }
 
@@ -289,6 +301,12 @@ class Clock extends App{
 
 			    	}
 			    }
+
+			    object ThenContinue {
+			    	def ELSE(a: AtContinue) = {
+
+			    	}
+			    }*/
 			}
 	    }
 	    
@@ -303,6 +321,8 @@ class Clock extends App{
 		var hour: Int = h
 		var minute: Int = m
 		var period: Period = p
+
+		// comparator methods that compares 2 Time objects
 		override def equals(that: Any): Boolean = 
 			that match{
 				case that: Time => this.hour == that.hour && this.minute == that.minute && this.period == that.period
@@ -331,21 +351,24 @@ class Clock extends App{
   				case that: Time => !(this < that)
   				case _ => false
   			}
-  		def ++(): Unit = if (this.minute == 59){
-							this.minute = 0
-							this.hour+=1
-							if(this.hour > 12){
-								this.hour = 1
-							}else if(this.hour == 12){
-								if(this.period == Period.parse("am")){
-									this.period = Period.parse("pm")
-								}else{
-									this.period = Period.parse("am")
-								}
-							}
-						}else{
-							this.minute+=1
-						}
+  		def ++(): Time = {
+  			if (minute == 59){
+				minute = 0
+				hour+=1
+				if(hour > 12){
+					hour = 1
+				}else if(hour == 12){
+					if(period == Period.parse("am")){
+						period = Period.parse("pm")
+					}else{
+						period = Period.parse("am")
+					}
+				}
+			}else{
+				minute+=1
+			}
+			return new Time(hour, minute, period)
+		}
 		override def hashCode: Int = {
 			val prime = 61
 			var result = 1
@@ -354,7 +377,7 @@ class Clock extends App{
 		}
 		override def toString() : String = (s"TIME " + hour + ":" + minute + " " + period)	    
 	}
-
+	// Period class distinguishes am and pm for Time objects, helps control execution flow
 	abstract class Period {
 	    case object AM extends Period
 	    case object PM extends Period
@@ -378,21 +401,24 @@ class Clock extends App{
 	//var startTime = new Time(12, 1, Period.parse("am"))
 	//var endTime = new Time(11, 59, Period.parse("pm"))
 
+	// HashMap that holds the commands for each time
 	val timeTable = new HashMap[Time, ClockOp]
 
 	/*def setStartTime(newTime: Time) = {
 		startTime = newTime
 	}*/
-
+	// sets the Time for the next incoming command
 	def setTime(newTime: Time) = {
 		currentTime = newTime
 	}
-
+	// adds the next command to the timeTable at the current Time
 	def addLine(lineBuilder: ProgramLines) = {
 		val line = lineBuilder.returnLine
+		println(line)
+		println(currentTime)
 		timeTable += Tuple2(currentTime, line)
 	}
-
+	// runs the program, executing commands in order of Time, like a clock, beginning at 12:00 am
 	def runProgram() = {
 		var hour = 12
 		var minute = 0
@@ -405,6 +431,7 @@ class Clock extends App{
 				currentLine match {
 					case ClockNone => // do nothing
 
+					// Mathematical operations for ints
 				    case ClockAddition(num: Int) => currentNumber += num.toDouble
 				    case ClockSubtraction(num: Int) => currentNumber -= num.toDouble
 				    case ClockMultiplication(num: Int) => currentNumber *= num.toDouble
@@ -412,6 +439,7 @@ class Clock extends App{
 				    case ClockModulus(num: Int) => currentNumber %= num.toDouble
 				    case ClockRaise(num: Int) => currentNumber = scala.math.pow(currentNumber, num)
 
+				    // Mathematical operations for doubles
 				    case ClockAdditionD(num: Double) => currentNumber += num
 				    case ClockSubtractionD(num: Double) => currentNumber -= num
 				    case ClockMultiplicationD(num: Double) => currentNumber *= num
@@ -419,31 +447,37 @@ class Clock extends App{
 				    case ClockModulusD(num: Double) => currentNumber %= num
 				    case ClockRaiseD(num: Double) => currentNumber = scala.math.pow(currentNumber, num)
 
+				    // Comparators for ints
 				    case ClockGreater(num: Int) => currentBoolean = currentNumber > num.toDouble
 				    case ClockGreaterEqual(num: Int) => currentBoolean = currentNumber >= num.toDouble
 				    case ClockLess(num: Int) => currentBoolean = currentNumber < num.toDouble
 				    case ClockLessEqual(num: Int) => currentBoolean = currentNumber <= num.toDouble
 				    case ClockEqual(num: Int) => currentBoolean = currentNumber == num.toDouble
 
+				    // Comparators for doubles
 				    case ClockGreaterD(num: Double) => currentBoolean = currentNumber > num
 				    case ClockGreaterEqualD(num: Double) => currentBoolean = currentNumber >= num
 				    case ClockLessD(num: Double) => currentBoolean = currentNumber < num
 				    case ClockLessEqualD(num: Double) => currentBoolean = currentNumber <= num
 				    case ClockEqualD(num: Double) => currentBoolean = currentNumber == num
 
+				    // Negates current number
 				    case ClockNegation() => currentNumber = -currentNumber
 
+				    // Boolean operations
 				    case ClockAnd(bool: Boolean) => currentBoolean &= bool
 				    case ClockOr(bool: Boolean) => currentBoolean |= bool
 				    case ClockNot(bool: Boolean) => currentBoolean = !bool
 				    case ClockNotCurrent() => currentBoolean = !currentBoolean
 
+				    // String operations
 				    case ClockAppString(str: String) => currentString += str
 				    case ClockPrepString(str: String) => currentString = str + currentString
 				    case ClockReplaceString(str: String) => currentString = str
 				    case ClockRemoveStringEnd(num: Int) => currentString = currentString.dropRight(num)
 				    case ClockRemoveStringBeg(num: Int) => currentString = currentString.drop(num)
 
+				    // Outputs for different types
 				    case ClockOutputInt() => println(currentNumber.toInt)
 				    case ClockOutputDouble() => println(currentNumber.toDouble)
 				    case ClockOutputBool() => println(currentBoolean)

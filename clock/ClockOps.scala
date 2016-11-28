@@ -1,5 +1,6 @@
 package clock
 
+// enum class for operations
 object ClockOps {
   abstract sealed class ClockOpEnum
 

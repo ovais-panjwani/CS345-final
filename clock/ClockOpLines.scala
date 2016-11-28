@@ -1,5 +1,6 @@
 package clock
 
+// line types for storing lines in TimeSlot
 object ClockOpLines {
   abstract sealed class ClockOp
 
