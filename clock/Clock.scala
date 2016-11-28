@@ -25,8 +25,11 @@ class Clock extends App{
 
 	// the keyword AT sets the Time and therefore the order of execution for the instruction
 	object AT {
+		var currentTime = new Time(12, 0, Period.parse("am"))
+
 		def apply(t: Time) = {
 			timeSlot setTime t
+			currentTime = t
 			AtContinue
 	    }
 
@@ -240,6 +243,26 @@ class Clock extends App{
 				lineBuilder setOp ClockOps.OUTPUT_STRING
 				timeSlot addLine lineBuilder
 			}
+
+			var loopTimes = 0
+
+			object FOR {
+				def apply(n: Int) = {
+					loopTimes = n
+					ForContinue
+			    }
+
+			    object ForContinue {
+			    	def MINUTES(){
+
+			    	}
+
+			    	def HOURS(){
+			    		loopTimes *= 60
+
+			    	}
+			    }
+			}
 	    }
 	    
 	}
@@ -248,10 +271,11 @@ class Clock extends App{
 		timeSlot runProgram
 	}
 
+	// Time objects are used to control the flow of execution
 	class Time(h: Int, m: Int, p: Period) {
-		val hour: Int = h
-		val minute: Int = m
-		val period: Period = p
+		var hour: Int = h
+		var minute: Int = m
+		var period: Period = p
 		override def equals(that: Any): Boolean = 
 			that match{
 				case that: Time => this.hour == that.hour && this.minute == that.minute && this.period == that.period
@@ -280,6 +304,21 @@ class Clock extends App{
   				case that: Time => !(this < that)
   				case _ => false
   			}
+  		def ++(): Unit = if (this.minute == 59){
+							this.minute = 0
+							this.hour+=1
+							if(this.hour > 12){
+								this.hour = 1
+							}else if(this.hour == 12){
+								if(this.period == Period.parse("am")){
+									this.period = Period.parse("pm")
+								}else{
+									this.period = Period.parse("am")
+								}
+							}
+						}else{
+							this.minute+=1
+						}
 		override def hashCode: Int = {
 			val prime = 61
 			var result = 1
@@ -301,15 +340,22 @@ class Clock extends App{
 	      case _    => null
 	    }
 	}
-
+	/* TimeSlot class uses a HashMap to hold commands at different Times and executes the commands
+		in order according to the Times, starting at 12:00 am and ending at 11:59 pm*/
 	class TimeSlot{
 
 	var currentTime = new Time(12, 1, Period.parse("am"))
 	var currentNumber = 0.0
 	var currentBoolean = false
 	var currentString = ""
+	//var startTime = new Time(12, 1, Period.parse("am"))
+	//var endTime = new Time(11, 59, Period.parse("pm"))
 
 	val timeTable = new HashMap[Time, ClockOp]
+
+	/*def setStartTime(newTime: Time) = {
+		startTime = newTime
+	}*/
 
 	def setTime(newTime: Time) = {
 		currentTime = newTime
@@ -377,22 +423,7 @@ class Clock extends App{
 				    case ClockOutputString() => println(currentString)
 				}
 			}
-			if (minute == 59){
-				minute = 0
-				hour+=1
-				if(hour > 12){
-					hour = 1
-				}else if(hour == 12){
-					if(period == Period.parse("am")){
-						period = Period.parse("pm")
-					}else{
-						period = Period.parse("am")
-					}
-				}
-			}else{
-				minute+=1
-			}
-			runTime = new Time(hour, minute, period)
+			runTime++
 		}
 	}
 }
