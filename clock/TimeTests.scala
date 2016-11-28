@@ -36,7 +36,7 @@ object TimeTests extends Clock{
 	
 	AT ("03:30 am") OUTPUT_BOOLEAN;
 	
-	AT ("04:00 am") OUTPUT_BOOLEAN;
+	AT ("04:00 am") OUTPUT_BOOLEAN() UNTIL ("04:05 am");
 	
 	AT ("04:15 am") NOT_CURRENT;
 	

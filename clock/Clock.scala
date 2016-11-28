@@ -14,6 +14,7 @@ class Clock extends App{
 
 	val lineBuilder = new ProgramLines
 	val timeSlot = new TimeSlot
+	val rand = new Random()
 
 	// an implicit conversion from string to Time object
 	implicit def string2Time(s: String): Time = {
@@ -31,7 +32,7 @@ class Clock extends App{
 
 		def apply(t: Time) = {
 			timeSlot setTime t
-			currTime = t
+			currTime = new Time(t.hour, t.minute, t.period)
 			AtContinue
 	    }
 
@@ -173,6 +174,51 @@ class Clock extends App{
 				lineBuilder setOp ClockOps.RAISE_D
 				timeSlot addLine lineBuilder
 				currentOp = ClockOps.RAISE_D
+				CommandContinue
+			}
+
+			def ADD_RANDOM() = {
+				val n = rand.nextInt
+				lineBuilder setNumber n
+				lineBuilder setOp ClockOps.ADDITION
+				timeSlot addLine lineBuilder
+				currentOp = ClockOps.ADDITION
+				CommandContinue
+			}
+
+			def SUBTRACT_RANDOM() = {
+				val n = rand.nextInt
+				lineBuilder setNumber n
+				lineBuilder setOp ClockOps.SUBTRACTION
+				timeSlot addLine lineBuilder
+				currentOp = ClockOps.SUBTRACTION
+				CommandContinue
+			}
+
+			def MULTIPLY_RANDOM() = {
+				val n = rand.nextInt
+				lineBuilder setNumber n
+				lineBuilder setOp ClockOps.MULTIPLICATION
+				timeSlot addLine lineBuilder
+				currentOp = ClockOps.MULTIPLICATION
+				CommandContinue
+			}
+
+			def DIVIDE_RANDOM() = {
+				val n = rand.nextInt
+				lineBuilder setNumber n
+				lineBuilder setOp ClockOps.DIVISION
+				timeSlot addLine lineBuilder
+				currentOp = ClockOps.DIVISION
+				CommandContinue
+			}
+
+			def MODULUS_RANDOM() = {
+				val n = rand.nextInt
+				lineBuilder setNumber n
+				lineBuilder setOp ClockOps.MODULUS
+				timeSlot addLine lineBuilder
+				currentOp = ClockOps.MODULUS
 				CommandContinue
 			}
 
@@ -329,6 +375,25 @@ class Clock extends App{
 					loopTimes = n
 					ForContinue
 			    }
+
+			    def UNTIL(t: Time) = {
+			    	while(currTime < t){
+			    		currTime++;
+			    		timeSlot setTime currTime
+			    		lineBuilder setOp currentOp
+			    		timeSlot addLine lineBuilder
+			    	}
+			    }
+
+			    def THROUGH(t: Time) = {
+			    	while(currTime <= t){
+			    		currTime++;
+			    		timeSlot setTime currTime
+			    		lineBuilder setOp currentOp
+			    		timeSlot addLine lineBuilder
+			    	}
+			    }
+
 			    object ForContinue{
 			    	def MINUTES() = {
 			    		var a = 0
@@ -403,7 +468,7 @@ class Clock extends App{
 
 			    /*object IfContinue {
 			    	def ELSE() = {
-			    		AT.AtContinue
+			    		AtContinue
 			    		if (currentBool){
 			    			timeSlot removeLine
 			    		}
