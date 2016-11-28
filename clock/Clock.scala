@@ -39,6 +39,8 @@ class Clock extends App{
 
 	    // all the commands that can be executed
 	    object AtContinue {
+
+	    	// Mathematical operations using ints
 			def ADD(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.ADDITION
@@ -51,199 +53,268 @@ class Clock extends App{
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.SUBTRACTION
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.SUBTRACTION
+				CommandContinue
 			}
 
 			def MULTIPLY_BY(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MULTIPLICATION
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.MULTIPLICATION
+				CommandContinue
 			}
 
 			def DIVIDE_BY(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.DIVISION
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.DIVISION
+				CommandContinue
 			}
 
 			def RAISE_TO_POWER(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.RAISE
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.RAISE
+				CommandContinue
 			}
 
 			def MODULUS(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MODULUS
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.MODULUS
+				CommandContinue
 			}
 
 			def GREATER_THAN(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.GREATER 
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.GREATER
+				CommandContinue
 			}
 
 			def GREATER_THAN_EQUAL(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.GREATER_EQUAL
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.GREATER_EQUAL
+				CommandContinue
 			}
 
 			def LESS_THAN(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.LESS
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.LESS
+				CommandContinue
 			}
 
 			def LESS_THAN_EQUAL(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.LESS_EQUAL
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.LESS_EQUAL
+				CommandContinue
 			}
 
 			def EQUAL(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.EQUAL
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.EQUAL
+				CommandContinue
 			}
 
+			// Mathematical operations using doubles
 			def ADD(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.ADDITION_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.ADDITION_D
+				CommandContinue
 			}
 
 			def SUBTRACT(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.SUBTRACTION_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.SUBTRACTION_D
+				CommandContinue
 			}
 
 			def MULTIPLY_BY(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MULTIPLICATION_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.MULTIPLICATION_D
+				CommandContinue
 			}
 
 			def DIVIDE_BY(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.DIVISION_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.DIVISION_D
+				CommandContinue
 			}
 
 			def MODULUS(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MODULUS_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.MODULUS_D
+				CommandContinue
 			}
 
 			def RAISE_TO_POWER(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.RAISE_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.RAISE_D
+				CommandContinue
 			}
 
-			def GREATER_THAN_D(n: Double) = {
+			def GREATER_THAN(n: Double) = {
 				lineBuilder setNumber n
-				lineBuilder setOp ClockOps.GREATER 
+				lineBuilder setOp ClockOps.GREATER_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.GREATER_D
+				CommandContinue
 			}
 
-			def GREATER_THAN_EQUAL_D(n: Double) = {
+			def GREATER_THAN_EQUAL(n: Double) = {
 				lineBuilder setNumber n
-				lineBuilder setOp ClockOps.GREATER_EQUAL
+				lineBuilder setOp ClockOps.GREATER_EQUAL_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.GREATER_EQUAL_D
+				CommandContinue
 			}
 
-			def LESS_THAN_D(n: Double) = {
+			def LESS_THAN(n: Double) = {
 				lineBuilder setNumber n
-				lineBuilder setOp ClockOps.LESS
+				lineBuilder setOp ClockOps.LESS_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.LESS_D
+				CommandContinue
 			}
 
-			def LESS_THAN_EQUAL_D(n: Double) = {
+			def LESS_THAN_EQUAL(n: Double) = {
 				lineBuilder setNumber n
-				lineBuilder setOp ClockOps.LESS_EQUAL
+				lineBuilder setOp ClockOps.LESS_EQUAL_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.LESS_EQUAL_D
+				CommandContinue
 			}
 
-			def EQUAL_D(n: Double) = {
+			def EQUAL(n: Double) = {
 				lineBuilder setNumber n
-				lineBuilder setOp ClockOps.EQUAL
+				lineBuilder setOp ClockOps.EQUAL_D
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.EQUAL_D
+				CommandContinue
 			}
 
 			def NEGATE() = {
 				lineBuilder setOp ClockOps.NEGATION
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.NEGATION
+				CommandContinue
 			}
 
 			def AND(b: Boolean) = {
 				lineBuilder setBool b
 				lineBuilder setOp ClockOps.AND
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.AND
+				CommandContinue
 			}
 
 			def OR(b: Boolean) = {
 				lineBuilder setBool b
 				lineBuilder setOp ClockOps.OR
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.OR
+				CommandContinue
 			}
 
 			def NOT(b: Boolean) = {
 				lineBuilder setBool b
 				lineBuilder setOp ClockOps.NOT
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.NOT
+				CommandContinue
 			}
 
 			def NOT_CURRENT() = {
 				lineBuilder setOp ClockOps.NOT_CURRENT
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.NOT_CURRENT
+				CommandContinue
 			}
 
 			def APPEND_STRING(s: String) = {
 				lineBuilder setString s
 				lineBuilder setOp ClockOps.APP_STRING
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.APP_STRING
+				CommandContinue
 			}
 
 			def PREPEND_STRING(s: String) = {
 				lineBuilder setString s
 				lineBuilder setOp ClockOps.PREP_STRING
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.PREP_STRING
+				CommandContinue
 			}
 
 			def REPLACE_STRING(s: String) = {
 				lineBuilder setString s
 				lineBuilder setOp ClockOps.REPLACE_STRING
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.REPLACE_STRING
+				CommandContinue
 			}
 
 			def REMOVE_STRING_END(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.REM_STR_END
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.REM_STR_END
+				CommandContinue
 			}
 
 			def REMOVE_STRING_BEGINNING(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.REM_STR_BEG
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.REM_STR_BEG
+				CommandContinue
 			}
 
 			def OUTPUT_INT() = {
 				lineBuilder setOp ClockOps.OUTPUT_INT
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.OUTPUT_INT
+				CommandContinue
 			}
 
 			def OUTPUT_DOUBLE() = {
 				lineBuilder setOp ClockOps.OUTPUT_DOUBLE
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.OUTPUT_DOUBLE
+				CommandContinue
 			}
 
 			def OUTPUT_BOOLEAN() = {
 				lineBuilder setOp ClockOps.OUTPUT_BOOL
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.OUTPUT_BOOL
+				CommandContinue
 			}
 
 			def OUTPUT_STRING() = {
@@ -367,7 +438,8 @@ class Clock extends App{
 			}else{
 				minute+=1
 			}
-			return new Time(hour, minute, period)
+			var newTime: Time = new Time(hour, minute, period)
+			return newTime
 		}
 		override def hashCode: Int = {
 			val prime = 61
@@ -394,99 +466,96 @@ class Clock extends App{
 		in order according to the Times, starting at 12:00 am and ending at 11:59 pm*/
 	class TimeSlot{
 
-	var currentTime = new Time(12, 1, Period.parse("am"))
-	var currentNumber = 0.0
-	var currentBoolean = false
-	var currentString = ""
-	//var startTime = new Time(12, 1, Period.parse("am"))
-	//var endTime = new Time(11, 59, Period.parse("pm"))
+		var currentTime = new Time(12, 1, Period.parse("am"))
+		var currentNumber = 0.0
+		var currentBoolean = false
+		var currentString = ""
+		//var startTime = new Time(12, 1, Period.parse("am"))
+		//var endTime = new Time(11, 59, Period.parse("pm"))
 
-	// HashMap that holds the commands for each time
-	val timeTable = new HashMap[Time, ClockOp]
+		// HashMap that holds the commands for each time
+		val timeTable = new HashMap[Time, ClockOp]
 
-	/*def setStartTime(newTime: Time) = {
-		startTime = newTime
-	}*/
-	// sets the Time for the next incoming command
-	def setTime(newTime: Time) = {
-		currentTime = newTime
-	}
-	// adds the next command to the timeTable at the current Time
-	def addLine(lineBuilder: ProgramLines) = {
-		val line = lineBuilder.returnLine
-		println(line)
-		println(currentTime)
-		timeTable += Tuple2(currentTime, line)
-	}
-	// runs the program, executing commands in order of Time, like a clock, beginning at 12:00 am
-	def runProgram() = {
-		var hour = 12
-		var minute = 0
-		var period = Period.parse("am")
-		val endTime = new Time(11, 59, Period.parse("pm"))
-		var runTime = new Time(hour, minute, period)
-		while (runTime != endTime){
-			if(timeTable contains runTime){
-				val currentLine = timeTable(runTime)
-				currentLine match {
-					case ClockNone => // do nothing
-
-					// Mathematical operations for ints
-				    case ClockAddition(num: Int) => currentNumber += num.toDouble
-				    case ClockSubtraction(num: Int) => currentNumber -= num.toDouble
-				    case ClockMultiplication(num: Int) => currentNumber *= num.toDouble
-				    case ClockDivision(num: Int) => currentNumber /= num.toDouble
-				    case ClockModulus(num: Int) => currentNumber %= num.toDouble
-				    case ClockRaise(num: Int) => currentNumber = scala.math.pow(currentNumber, num)
-
-				    // Mathematical operations for doubles
-				    case ClockAdditionD(num: Double) => currentNumber += num
-				    case ClockSubtractionD(num: Double) => currentNumber -= num
-				    case ClockMultiplicationD(num: Double) => currentNumber *= num
-				    case ClockDivisionD(num: Double) => currentNumber /= num
-				    case ClockModulusD(num: Double) => currentNumber %= num
-				    case ClockRaiseD(num: Double) => currentNumber = scala.math.pow(currentNumber, num)
-
-				    // Comparators for ints
-				    case ClockGreater(num: Int) => currentBoolean = currentNumber > num.toDouble
-				    case ClockGreaterEqual(num: Int) => currentBoolean = currentNumber >= num.toDouble
-				    case ClockLess(num: Int) => currentBoolean = currentNumber < num.toDouble
-				    case ClockLessEqual(num: Int) => currentBoolean = currentNumber <= num.toDouble
-				    case ClockEqual(num: Int) => currentBoolean = currentNumber == num.toDouble
-
-				    // Comparators for doubles
-				    case ClockGreaterD(num: Double) => currentBoolean = currentNumber > num
-				    case ClockGreaterEqualD(num: Double) => currentBoolean = currentNumber >= num
-				    case ClockLessD(num: Double) => currentBoolean = currentNumber < num
-				    case ClockLessEqualD(num: Double) => currentBoolean = currentNumber <= num
-				    case ClockEqualD(num: Double) => currentBoolean = currentNumber == num
-
-				    // Negates current number
-				    case ClockNegation() => currentNumber = -currentNumber
-
-				    // Boolean operations
-				    case ClockAnd(bool: Boolean) => currentBoolean &= bool
-				    case ClockOr(bool: Boolean) => currentBoolean |= bool
-				    case ClockNot(bool: Boolean) => currentBoolean = !bool
-				    case ClockNotCurrent() => currentBoolean = !currentBoolean
-
-				    // String operations
-				    case ClockAppString(str: String) => currentString += str
-				    case ClockPrepString(str: String) => currentString = str + currentString
-				    case ClockReplaceString(str: String) => currentString = str
-				    case ClockRemoveStringEnd(num: Int) => currentString = currentString.dropRight(num)
-				    case ClockRemoveStringBeg(num: Int) => currentString = currentString.drop(num)
-
-				    // Outputs for different types
-				    case ClockOutputInt() => println(currentNumber.toInt)
-				    case ClockOutputDouble() => println(currentNumber.toDouble)
-				    case ClockOutputBool() => println(currentBoolean)
-				    case ClockOutputString() => println(currentString)
-				}
-			}
-			runTime++;
+		/*def setStartTime(newTime: Time) = {
+			startTime = newTime
+		}*/
+		// sets the Time for the next incoming command
+		def setTime(newTime: Time) = {
+			currentTime = new Time(newTime.hour, newTime.minute, newTime.period)
 		}
-		println(timeTable.keySet)
+		// adds the next command to the timeTable at the current Time
+		def addLine(lineBuilder: ProgramLines) = {
+			val line = lineBuilder.returnLine
+			timeTable += Tuple2(currentTime, line)
+		}
+		// runs the program, executing commands in order of Time, like a clock, beginning at 12:00 am
+		def runProgram() = {
+			var hour = 12
+			var minute = 0
+			var period = Period.parse("am")
+			val endTime = new Time(11, 59, Period.parse("pm"))
+			var runTime = new Time(hour, minute, period)
+			while (runTime != endTime){
+				if(timeTable contains runTime){
+					val currentLine = timeTable(runTime)
+					currentLine match {
+						case ClockNone => // do nothing
+
+						// Mathematical operations for ints
+					    case ClockAddition(num: Int) => currentNumber += num.toDouble
+					    case ClockSubtraction(num: Int) => currentNumber -= num.toDouble
+					    case ClockMultiplication(num: Int) => currentNumber *= num.toDouble
+					    case ClockDivision(num: Int) => currentNumber /= num.toDouble
+					    case ClockModulus(num: Int) => currentNumber %= num.toDouble
+					    case ClockRaise(num: Int) => currentNumber = scala.math.pow(currentNumber, num)
+
+					    // Mathematical operations for doubles
+					    case ClockAdditionD(num: Double) => currentNumber += num
+					    case ClockSubtractionD(num: Double) => currentNumber -= num
+					    case ClockMultiplicationD(num: Double) => currentNumber *= num
+					    case ClockDivisionD(num: Double) => currentNumber /= num
+					    case ClockModulusD(num: Double) => currentNumber %= num
+					    case ClockRaiseD(num: Double) => currentNumber = scala.math.pow(currentNumber, num)
+
+					    // Comparators for ints
+					    case ClockGreater(num: Int) => currentBoolean = currentNumber > num.toDouble
+					    case ClockGreaterEqual(num: Int) => currentBoolean = currentNumber >= num.toDouble
+					    case ClockLess(num: Int) => currentBoolean = currentNumber < num.toDouble
+					    case ClockLessEqual(num: Int) => currentBoolean = currentNumber <= num.toDouble
+					    case ClockEqual(num: Int) => currentBoolean = currentNumber == num.toDouble
+
+					    // Comparators for doubles
+					    case ClockGreaterD(num: Double) => currentBoolean = currentNumber > num
+					    case ClockGreaterEqualD(num: Double) => currentBoolean = currentNumber >= num
+					    case ClockLessD(num: Double) => currentBoolean = currentNumber < num
+					    case ClockLessEqualD(num: Double) => currentBoolean = currentNumber <= num
+					    case ClockEqualD(num: Double) => currentBoolean = currentNumber == num
+
+					    // Negates current number
+					    case ClockNegation() => currentNumber = -currentNumber
+
+					    // Boolean operations
+					    case ClockAnd(bool: Boolean) => currentBoolean &= bool
+					    case ClockOr(bool: Boolean) => currentBoolean |= bool
+					    case ClockNot(bool: Boolean) => currentBoolean = !bool
+					    case ClockNotCurrent() => currentBoolean = !currentBoolean
+
+					    // String operations
+					    case ClockAppString(str: String) => currentString += str
+					    case ClockPrepString(str: String) => currentString = str + currentString
+					    case ClockReplaceString(str: String) => currentString = str
+					    case ClockRemoveStringEnd(num: Int) => currentString = currentString.dropRight(num)
+					    case ClockRemoveStringBeg(num: Int) => currentString = currentString.drop(num)
+
+					    // Outputs for different types
+					    case ClockOutputInt() => println(currentNumber.toInt)
+					    case ClockOutputDouble() => println(currentNumber.toDouble)
+					    case ClockOutputBool() => println(currentBoolean)
+					    case ClockOutputString() => println(currentString)
+					}
+				}
+				runTime++;
+			}
+		}
 	}
-}
 }
