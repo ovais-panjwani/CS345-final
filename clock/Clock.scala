@@ -403,7 +403,7 @@ class Clock extends App{
 
 			    /*object IfContinue {
 			    	def ELSE() = {
-			    		AtContinue
+			    		AT.AtContinue
 			    		if (currentBool){
 			    			timeSlot removeLine
 			    		}

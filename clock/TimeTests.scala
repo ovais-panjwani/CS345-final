@@ -68,7 +68,7 @@ object TimeTests extends Clock{
 
 	AT ("02:25 pm") OUTPUT_STRING;
 
-	AT ("03:00 pm") REPLACE_STRING "This is a new string" IF_NUMBER_LESS_THAN 1 ;//ELSE REPLACE_STRING "Guess it was greater than";
+	AT ("03:00 pm") REPLACE_STRING "This is a new string" IF_NUMBER_LESS_THAN 1;// ELSE() REMOVE_STRING_END 7;
 
 	AT ("03:05 pm") OUTPUT_STRING() FOR 2 MINUTES;
 	
