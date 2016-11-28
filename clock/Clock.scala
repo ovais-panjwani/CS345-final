@@ -27,9 +27,7 @@ class Clock extends App{
 	object AT {
 		var currTime = new Time(12, 0, Period.parse("am"))
 		var currentOp: ClockOpEnum = NONE
-		var currentNum = 0.0
 		var currentBool = false
-		var currentStr = ""
 
 		def apply(t: Time) = {
 			timeSlot setTime t
@@ -363,19 +361,52 @@ class Clock extends App{
 			    	}
 			    }
 
-			    /*def IF(b: Boolean) = {
-
+			    def IF_NUMBER_GREATER_THAN(n: Int) = {
+		    		currentBool = timeSlot.currentNumber > n
+		    		if (!currentBool){
+		    			timeSlot removeLine
+		    		}
+		    		//IfContinue			    	
 			    }
 
-			    object IfContinue {
-			    	def THEN(a: AtContinue) = {
-
-			    	}
+			    def IF_NUMBER_LESS_THAN(n: Int) = {
+		    		currentBool = timeSlot.currentNumber < n
+		    		if (!currentBool){
+		    			timeSlot removeLine
+		    		}
+		    		//IfContinue			    	
 			    }
 
-			    object ThenContinue {
-			    	def ELSE(a: AtContinue) = {
+			    def IF_NUMBER_GREATER_THAN_EQUAL(n: Int) = {
+		    		currentBool = timeSlot.currentNumber >= n
+		    		if (!currentBool){
+		    			timeSlot removeLine
+		    		}
+		    		//IfContinue			    	
+			    }
 
+			    def IF_NUMBER_LESS_THAN_EQUAL(n: Int) = {
+		    		currentBool = timeSlot.currentNumber <= n
+		    		if (!currentBool){
+		    			timeSlot removeLine
+		    		}
+		    		//IfContinue			    	
+			    }
+
+			    def IF_NUMBER_EQUAL(n: Int) = {
+		    		currentBool = timeSlot.currentNumber == n
+		    		if (!currentBool){
+		    			timeSlot removeLine
+		    		}
+		    		//IfContinue			    	
+			    }
+
+			    /*object IfContinue {
+			    	def ELSE() = {
+			    		AtContinue
+			    		if (currentBool){
+			    			timeSlot removeLine
+			    		}
 			    	}
 			    }*/
 			}
@@ -487,6 +518,10 @@ class Clock extends App{
 		def addLine(lineBuilder: ProgramLines) = {
 			val line = lineBuilder.returnLine
 			timeTable += Tuple2(currentTime, line)
+		}
+		//removes last line added in conditionals
+		def removeLine() = {
+			timeTable -= currentTime
 		}
 		// runs the program, executing commands in order of Time, like a clock, beginning at 12:00 am
 		def runProgram() = {
