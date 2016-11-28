@@ -58,7 +58,7 @@ object TimeTests extends Clock{
 	
 	AT ("02:05 pm") PREPEND_STRING "sure ";
 	
-	AT ("02:30 pm") OUTPUT_STRING;
+	AT ("02:30 pm") OUTPUT_STRING() FOR 5 MINUTES;
 
 	AT ("02:22 pm") PREPEND_STRING "Yes, ";
 

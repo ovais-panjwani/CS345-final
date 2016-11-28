@@ -26,6 +26,10 @@ class Clock extends App{
 	// the keyword AT sets the Time and therefore the order of execution for the instruction
 	object AT {
 		var currentTime = new Time(12, 0, Period.parse("am"))
+		var currentOp: ClockOpEnum = NONE
+		var currentNum = 0.0
+		var currentBool = false
+		var currentString = ""
 
 		def apply(t: Time) = {
 			timeSlot setTime t
@@ -242,23 +246,46 @@ class Clock extends App{
 			def OUTPUT_STRING() = {
 				lineBuilder setOp ClockOps.OUTPUT_STRING
 				timeSlot addLine lineBuilder
+				currentOp = ClockOps.OUTPUT_STRING
+				CommandContinue
 			}
 
 			var loopTimes = 0
 
-			object FOR {
-				def apply(n: Int) = {
+			object CommandContinue {
+				def FOR(n: Int) = {
 					loopTimes = n
+					println(loopTimes)
 					ForContinue
 			    }
-
-			    object ForContinue {
-			    	def MINUTES(){
-
+			    object ForContinue{
+			    	def MINUTES() = {
+			    		var a = 0
+			    		for (a <- 1 to loopTimes){
+			    			currentTime++;
+			    			println(currentTime)
+			    			timeSlot setTime currentTime
+			    			lineBuilder setOp currentOp
+			    			timeSlot addLine lineBuilder
+			    		}
 			    	}
 
-			    	def HOURS(){
+			    	def HOURS() = {
 			    		loopTimes *= 60
+			    		for (a <- 1 until loopTimes){
+			    			currentTime++;
+			    			timeSlot setTime currentTime
+			    			timeSlot addLine lineBuilder
+			    		}
+			    	}
+			    }
+
+			    def IF(b: Boolean) = {
+
+			    }
+
+			    object IfContinue {
+			    	def THEN(a: AtContinue) = {
 
 			    	}
 			    }
@@ -423,8 +450,9 @@ class Clock extends App{
 				    case ClockOutputString() => println(currentString)
 				}
 			}
-			runTime++
+			runTime++;
 		}
+		println(timeTable.keySet)
 	}
 }
 }
