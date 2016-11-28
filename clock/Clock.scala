@@ -183,7 +183,8 @@ class Clock extends App{
 				lineBuilder setOp ClockOps.ADDITION
 				timeSlot addLine lineBuilder
 				currentOp = ClockOps.ADDITION
-				CommandContinue
+				RandomContinue
+				//CommandContinue
 			}
 
 			def SUBTRACT_RANDOM() = {
@@ -192,25 +193,28 @@ class Clock extends App{
 				lineBuilder setOp ClockOps.SUBTRACTION
 				timeSlot addLine lineBuilder
 				currentOp = ClockOps.SUBTRACTION
-				CommandContinue
+				RandomContinue
+				//CommandContinue
 			}
 
-			def MULTIPLY_RANDOM() = {
+			def MULTIPLY_BY_RANDOM() = {
 				val n = rand.nextInt
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MULTIPLICATION
 				timeSlot addLine lineBuilder
 				currentOp = ClockOps.MULTIPLICATION
-				CommandContinue
+				RandomContinue
+				//CommandContinue
 			}
 
-			def DIVIDE_RANDOM() = {
+			def DIVIDE_BY_RANDOM() = {
 				val n = rand.nextInt
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.DIVISION
 				timeSlot addLine lineBuilder
 				currentOp = ClockOps.DIVISION
-				CommandContinue
+				RandomContinue
+				//CommandContinue
 			}
 
 			def MODULUS_RANDOM() = {
@@ -219,7 +223,8 @@ class Clock extends App{
 				lineBuilder setOp ClockOps.MODULUS
 				timeSlot addLine lineBuilder
 				currentOp = ClockOps.MODULUS
-				CommandContinue
+				RandomContinue
+				//CommandContinue
 			}
 
 			def GREATER_THAN(n: Double) = {
@@ -366,6 +371,24 @@ class Clock extends App{
 				timeSlot addLine lineBuilder
 				currentOp = ClockOps.OUTPUT_STRING
 				CommandContinue
+			}
+
+			object RandomContinue {
+				def BETWEEN(lowerBound: Int) = {
+					timeSlot removeLine;
+					new RandContinue(lowerBound)
+				}
+			}
+
+			class RandContinue(lower: Int) {
+				def AND(upperBound: Int) = {
+					val r = upperBound - lower
+					val n = rand.nextInt(r) + lower
+					lineBuilder setNumber n
+					lineBuilder setOp currentOp
+					timeSlot addLine lineBuilder
+					CommandContinue
+				}
 			}
 
 			var loopTimes = 0

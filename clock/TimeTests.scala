@@ -8,7 +8,7 @@ object TimeTests extends Clock{
 
 	AT ("12:45 am") ADD (8.5 + 1.5);
 
-	AT ("12:30 am") MULTIPLY_BY 3.2;
+	AT ("12:30 am") MULTIPLY_BY_RANDOM() BETWEEN 5 AND 10;
 
 	AT ("01:30 pm") DIVIDE_BY 2;
 
