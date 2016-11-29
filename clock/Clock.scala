@@ -28,7 +28,7 @@ class Clock extends App{
 	object AT {
 		var currTime = new Time(12, 0, Period.parse("am"))
 		var currentOp: ClockOpEnum = NONE
-		var currentBool = false
+		var setLine = true
 
 		def apply(t: Time) = {
 			timeSlot setTime t
@@ -43,15 +43,16 @@ class Clock extends App{
 			def ADD(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.ADDITION
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.ADDITION
+				//setLine = true
 				CommandContinue
 			}
 
 			def SUBTRACT(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.SUBTRACTION
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.SUBTRACTION
 				CommandContinue
 			}
@@ -59,7 +60,7 @@ class Clock extends App{
 			def MULTIPLY_BY(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MULTIPLICATION
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.MULTIPLICATION
 				CommandContinue
 			}
@@ -67,7 +68,7 @@ class Clock extends App{
 			def DIVIDE_BY(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.DIVISION
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.DIVISION
 				CommandContinue
 			}
@@ -75,7 +76,7 @@ class Clock extends App{
 			def RAISE_TO_POWER(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.RAISE
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.RAISE
 				CommandContinue
 			}
@@ -83,7 +84,7 @@ class Clock extends App{
 			def MODULUS(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MODULUS
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.MODULUS
 				CommandContinue
 			}
@@ -91,7 +92,7 @@ class Clock extends App{
 			def GREATER_THAN(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.GREATER 
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.GREATER
 				CommandContinue
 			}
@@ -99,7 +100,7 @@ class Clock extends App{
 			def GREATER_THAN_EQUAL(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.GREATER_EQUAL
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.GREATER_EQUAL
 				CommandContinue
 			}
@@ -107,7 +108,7 @@ class Clock extends App{
 			def LESS_THAN(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.LESS
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.LESS
 				CommandContinue
 			}
@@ -115,7 +116,7 @@ class Clock extends App{
 			def LESS_THAN_EQUAL(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.LESS_EQUAL
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.LESS_EQUAL
 				CommandContinue
 			}
@@ -123,7 +124,7 @@ class Clock extends App{
 			def EQUAL(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.EQUAL
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.EQUAL
 				CommandContinue
 			}
@@ -132,7 +133,7 @@ class Clock extends App{
 			def ADD(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.ADDITION_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.ADDITION_D
 				CommandContinue
 			}
@@ -140,7 +141,7 @@ class Clock extends App{
 			def SUBTRACT(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.SUBTRACTION_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.SUBTRACTION_D
 				CommandContinue
 			}
@@ -148,7 +149,7 @@ class Clock extends App{
 			def MULTIPLY_BY(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MULTIPLICATION_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.MULTIPLICATION_D
 				CommandContinue
 			}
@@ -156,7 +157,7 @@ class Clock extends App{
 			def DIVIDE_BY(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.DIVISION_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.DIVISION_D
 				CommandContinue
 			}
@@ -164,7 +165,7 @@ class Clock extends App{
 			def MODULUS(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MODULUS_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.MODULUS_D
 				CommandContinue
 			}
@@ -172,7 +173,7 @@ class Clock extends App{
 			def RAISE_TO_POWER(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.RAISE_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.RAISE_D
 				CommandContinue
 			}
@@ -181,56 +182,51 @@ class Clock extends App{
 				val n = rand.nextInt
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.ADDITION
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.ADDITION
 				RandomContinue
-				//CommandContinue
 			}
 
 			def SUBTRACT_RANDOM() = {
 				val n = rand.nextInt
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.SUBTRACTION
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.SUBTRACTION
 				RandomContinue
-				//CommandContinue
 			}
 
 			def MULTIPLY_BY_RANDOM() = {
 				val n = rand.nextInt
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MULTIPLICATION
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.MULTIPLICATION
 				RandomContinue
-				//CommandContinue
 			}
 
 			def DIVIDE_BY_RANDOM() = {
 				val n = rand.nextInt
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.DIVISION
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.DIVISION
 				RandomContinue
-				//CommandContinue
 			}
 
 			def MODULUS_RANDOM() = {
 				val n = rand.nextInt
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.MODULUS
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.MODULUS
 				RandomContinue
-				//CommandContinue
 			}
 
 			def GREATER_THAN(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.GREATER_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.GREATER_D
 				CommandContinue
 			}
@@ -238,7 +234,7 @@ class Clock extends App{
 			def GREATER_THAN_EQUAL(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.GREATER_EQUAL_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.GREATER_EQUAL_D
 				CommandContinue
 			}
@@ -246,7 +242,7 @@ class Clock extends App{
 			def LESS_THAN(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.LESS_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.LESS_D
 				CommandContinue
 			}
@@ -254,7 +250,7 @@ class Clock extends App{
 			def LESS_THAN_EQUAL(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.LESS_EQUAL_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.LESS_EQUAL_D
 				CommandContinue
 			}
@@ -262,14 +258,14 @@ class Clock extends App{
 			def EQUAL(n: Double) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.EQUAL_D
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.EQUAL_D
 				CommandContinue
 			}
 
 			def NEGATE() = {
 				lineBuilder setOp ClockOps.NEGATION
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.NEGATION
 				CommandContinue
 			}
@@ -277,7 +273,7 @@ class Clock extends App{
 			def AND(b: Boolean) = {
 				lineBuilder setBool b
 				lineBuilder setOp ClockOps.AND
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.AND
 				CommandContinue
 			}
@@ -285,7 +281,7 @@ class Clock extends App{
 			def OR(b: Boolean) = {
 				lineBuilder setBool b
 				lineBuilder setOp ClockOps.OR
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.OR
 				CommandContinue
 			}
@@ -293,22 +289,24 @@ class Clock extends App{
 			def NOT(b: Boolean) = {
 				lineBuilder setBool b
 				lineBuilder setOp ClockOps.NOT
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.NOT
 				CommandContinue
 			}
 
 			def NOT_CURRENT() = {
 				lineBuilder setOp ClockOps.NOT_CURRENT
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.NOT_CURRENT
 				CommandContinue
 			}
 
 			def APPEND_STRING(s: String) = {
 				lineBuilder setString s
-				lineBuilder setOp ClockOps.APP_STRING
-				timeSlot addLine lineBuilder
+				if(setLine) {
+					lineBuilder setOp ClockOps.APP_STRING
+					timeSlot addLine lineBuilder
+				}
 				currentOp = ClockOps.APP_STRING
 				CommandContinue
 			}
@@ -316,7 +314,7 @@ class Clock extends App{
 			def PREPEND_STRING(s: String) = {
 				lineBuilder setString s
 				lineBuilder setOp ClockOps.PREP_STRING
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.PREP_STRING
 				CommandContinue
 			}
@@ -324,15 +322,17 @@ class Clock extends App{
 			def REPLACE_STRING(s: String) = {
 				lineBuilder setString s
 				lineBuilder setOp ClockOps.REPLACE_STRING
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.REPLACE_STRING
 				CommandContinue
 			}
 
 			def REMOVE_STRING_END(n: Int) = {
 				lineBuilder setNumber n
-				lineBuilder setOp ClockOps.REM_STR_END
-				timeSlot addLine lineBuilder
+				if(setLine){
+					lineBuilder setOp ClockOps.REM_STR_END
+					timeSlot addLine lineBuilder
+				}
 				currentOp = ClockOps.REM_STR_END
 				CommandContinue
 			}
@@ -340,35 +340,35 @@ class Clock extends App{
 			def REMOVE_STRING_BEGINNING(n: Int) = {
 				lineBuilder setNumber n
 				lineBuilder setOp ClockOps.REM_STR_BEG
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.REM_STR_BEG
 				CommandContinue
 			}
 
 			def OUTPUT_INT() = {
 				lineBuilder setOp ClockOps.OUTPUT_INT
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.OUTPUT_INT
 				CommandContinue
 			}
 
 			def OUTPUT_DOUBLE() = {
 				lineBuilder setOp ClockOps.OUTPUT_DOUBLE
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.OUTPUT_DOUBLE
 				CommandContinue
 			}
 
 			def OUTPUT_BOOLEAN() = {
 				lineBuilder setOp ClockOps.OUTPUT_BOOL
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.OUTPUT_BOOL
 				CommandContinue
 			}
 
 			def OUTPUT_STRING() = {
 				lineBuilder setOp ClockOps.OUTPUT_STRING
-				timeSlot addLine lineBuilder
+				if(setLine) timeSlot addLine lineBuilder
 				currentOp = ClockOps.OUTPUT_STRING
 				CommandContinue
 			}
@@ -386,7 +386,7 @@ class Clock extends App{
 					val n = rand.nextInt(r) + lower
 					lineBuilder setNumber n
 					lineBuilder setOp currentOp
-					timeSlot addLine lineBuilder
+					if(setLine) timeSlot addLine lineBuilder
 					CommandContinue
 				}
 			}
@@ -404,7 +404,7 @@ class Clock extends App{
 			    		currTime++;
 			    		timeSlot setTime currTime
 			    		lineBuilder setOp currentOp
-			    		timeSlot addLine lineBuilder
+			    		if(setLine) timeSlot addLine lineBuilder
 			    	}
 			    }
 
@@ -413,7 +413,7 @@ class Clock extends App{
 			    		currTime++;
 			    		timeSlot setTime currTime
 			    		lineBuilder setOp currentOp
-			    		timeSlot addLine lineBuilder
+			    		if(setLine) timeSlot addLine lineBuilder
 			    	}
 			    }
 
@@ -434,7 +434,7 @@ class Clock extends App{
 			    			currTime++;
 			    			timeSlot setTime currTime
 			    			lineBuilder setOp currentOp
-			    			timeSlot addLine lineBuilder
+			    			if(setLine) timeSlot addLine lineBuilder
 			    		}
 			    	}
 
@@ -444,59 +444,64 @@ class Clock extends App{
 			    			currTime++;
 			    			timeSlot setTime currTime
 			    			lineBuilder setOp currentOp
-			    			timeSlot addLine lineBuilder
+			    			if(setLine) timeSlot addLine lineBuilder
 			    		}
 			    	}
 			    }
 
 			    def IF_NUMBER_GREATER_THAN(n: Int) = {
-		    		currentBool = timeSlot.currentNumber > n
-		    		if (!currentBool){
+		    		setLine = !(timeSlot.currentNumber > n)
+		    		if (setLine){
 		    			timeSlot removeLine
 		    		}
-		    		//IfContinue			    	
+		    		IfContinue			    	
 			    }
 
 			    def IF_NUMBER_LESS_THAN(n: Int) = {
-		    		currentBool = timeSlot.currentNumber < n
-		    		if (!currentBool){
+		    		setLine = !(timeSlot.currentNumber < n)
+		    		if (setLine){
 		    			timeSlot removeLine
 		    		}
-		    		//IfContinue			    	
+		    		IfContinue			    	
 			    }
 
 			    def IF_NUMBER_GREATER_THAN_EQUAL(n: Int) = {
-		    		currentBool = timeSlot.currentNumber >= n
-		    		if (!currentBool){
+		    		setLine = !(timeSlot.currentNumber >= n)
+		    		if (setLine){
 		    			timeSlot removeLine
 		    		}
-		    		//IfContinue			    	
+		    		IfContinue			    	
 			    }
 
 			    def IF_NUMBER_LESS_THAN_EQUAL(n: Int) = {
-		    		currentBool = timeSlot.currentNumber <= n
-		    		if (!currentBool){
+		    		setLine = !(timeSlot.currentNumber <= n)
+		    		if (setLine){
 		    			timeSlot removeLine
 		    		}
-		    		//IfContinue			    	
+		    		IfContinue			    	
 			    }
 
 			    def IF_NUMBER_EQUAL(n: Int) = {
-		    		currentBool = timeSlot.currentNumber == n
-		    		if (!currentBool){
+		    		setLine = !(timeSlot.currentNumber == n)
+		    		if (setLine){
 		    			timeSlot removeLine
 		    		}
-		    		//IfContinue			    	
+		    		IfContinue			    	
 			    }
 
-			    /*object IfContinue {
+			    def IF_NUMBER_NOT_EQUAL(n: Int) = {
+			    	setLine = !(timeSlot.currentNumber != n)
+		    		if (setLine){
+		    			timeSlot removeLine
+		    		}
+		    		IfContinue
+			    }
+
+			    object IfContinue {
 			    	def ELSE() = {
 			    		AtContinue
-			    		if (currentBool){
-			    			timeSlot removeLine
-			    		}
 			    	}
-			    }*/
+			    }
 			}
 	    }
 	    

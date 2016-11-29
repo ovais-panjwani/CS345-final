@@ -18,6 +18,7 @@ class ProgramLines{
 	var currentNumber = 0.0
 	var currentBool = false
 	var currentString = ""
+	var currentChar: Char = ''
 
 	def setNumber(newNum: Int){
 		currentNumber = newNum.toDouble
