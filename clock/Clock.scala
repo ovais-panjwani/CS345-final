@@ -275,6 +275,9 @@ class Clock extends App{
 					timeSlot addLine lineBuilder
 					currentOp = ClockOps.EQUAL
 				}
+				println(n.toDouble)
+				println(timeSlot.currentNumber)
+				println(n.toDouble == timeSlot.currentNumber)
 				CommandContinue
 			}
 

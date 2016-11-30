@@ -28,22 +28,34 @@ object TimeTests extends Clock{
 	AT ("2:03 am") NEGATE;
 
 	AT ("2:00 am") NEGATE;
+
+	AT ("2:15 am") ADD 2 FOR 2 HOURS;
+
+	AT ("4:30 am") SUBTRACT 1 FOR 1 HOUR;
 	
-	/*AT ("3:15 am") GREATER_THAN 10;
+	// Boolean functions
+	AT ("9:15 am") GREATER_THAN 10;
 	
-	AT ("3:45 am") LESS_THAN_EQUAL 10.0;
+	AT ("9:45 am") LESS_THAN_EQUAL 10.0;
 	
-	AT ("4:15 am") NOT_CURRENT;
+	AT ("10:15 am") NOT_CURRENT;
 	
-	AT ("4:45 am") NOT true;
+	AT ("10:45 am") NOT true;
 	
-	AT ("5:15 am") OR (true || false);
-	
+	AT ("11:15 am") OR (true || false);
+
+	AT ("12:15 am") EQUAL 15.75;
+
+	AT ("11:30 am") AND(5 > 10);
+
+	AT ("11:45 am") NOT_EQUAL 50;
+
+	// String manipulation
 	AT ("2:00 pm") APPEND_STRING "is ";
 	
 	AT ("2:20 pm") PREPEND_STRING "This ";
 	
-	AT ("2:10 pm") APPEND_STRING "a string, yo";
+	AT ("2:10 pm") APPEND_STRING "a string, yo ";
 	
 	AT ("2:15 pm") REMOVE_STRING_END 4;
 	
@@ -53,7 +65,7 @@ object TimeTests extends Clock{
 
 	AT ("2:26 pm") REMOVE_STRING_BEGINNING 5;	
 
-	AT ("3:00 pm") APPEND_STRING "This is a new string" IF_NUMBER_LESS_THAN 1 ELSE() REMOVE_STRING_END 7 FOR 2 MINUTES;*/
+	AT ("3:00 pm") APPEND_STRING "This is a new string " IF_NUMBER_LESS_THAN 1 ELSE() REMOVE_STRING_END 7 FOR 2 MINUTES;
 
 	AT ("12:06 am") OUTPUT_INT; // Result = 10
 
@@ -75,31 +87,45 @@ object TimeTests extends Clock{
 
 	AT ("2:01 am") OUTPUT_INT() THROUGH ("2:05 am");
 
+	AT ("4:20 am") OUTPUT_INT;
+
+	AT ("5:35 am") OUTPUT_DOUBLE;
+
 	//AT ("2:03 am") NEGATE;
 
-	/*AT ("3:30 am") OUTPUT_BOOLEAN;
+	AT ("9:30 am") OUTPUT_BOOLEAN;
 	
-	AT ("4:00 am") OUTPUT_BOOLEAN() UNTIL ("04:05 am");
+	AT ("10:00 am") OUTPUT_BOOLEAN() UNTIL ("10:05 am");
 
-	AT ("4:30 am") OUTPUT_BOOLEAN;
+	AT ("10:20 am") OUTPUT_BOOLEAN;
 
-	AT ("5:00 am") OUTPUT_BOOLEAN;
+	AT ("10:50 am") OUTPUT_BOOLEAN;
 
-	AT ("5:30 am") OUTPUT_BOOLEAN;
+	AT ("11:20 am") OUTPUT_BOOLEAN;
+
+	AT ("11:35 am") OUTPUT_BOOLEAN;
+
+	AT ("12:00 pm") OUTPUT_BOOLEAN() FOR 5 MINUTES;
+
+	AT ("12:30 pm") OUTPUT_BOOLEAN;
 
 	AT ("2:25 pm") OUTPUT_STRING;
 
 	AT ("2:30 pm") OUTPUT_STRING() FOR 5 MINUTES;
 
-	AT ("3:05 pm") OUTPUT_STRING() FOR 2 MINUTES;*/
+	AT ("3:05 pm") OUTPUT_STRING() FOR 2 MINUTES;
 	
-	RUN;// FOR 2 DAYS;
+	RUN FOR 2 DAYS;
 
 	CLEAR;
 
-	AT ("12:05 am") ADD 2;
+	AT ("12:05 am") ADD_RANDOM;
 
-	AT ("12:10 am") OUTPUT_INT;
+	AT ("12:15 am") OUTPUT_INT;
+
+	AT ("12:00 am") APPEND_STRING "This is a new program";
+
+	AT ("12:10 am") OUTPUT_STRING;
 
 	RUN;
 

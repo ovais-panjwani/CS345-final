@@ -106,4 +106,6 @@ outputs and ELSE.
 ## Possible Extensions
 
 It should be possible to implement variables, and potentially function calls. In order to accommodate
-more command lines, the Time class can be altered to go by seconds, rather than minutes.
+more command lines, the Time class can be altered to go by seconds, rather than minutes. Also, it 
+wouldn't hurt to rearrange the objects and classes in such a way that the need for parentheses 
+after commands that don't take arguments.
