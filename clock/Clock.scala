@@ -18,7 +18,7 @@ class Clock extends App{
 
 	// an implicit conversion from string to Time object
 	implicit def string2Time(s: String): Time = {
-	    val pattern = "(\\d\\d):(\\d\\d) ([ap]m)".r
+	    val pattern = "(\\d{1,2}):(\\d\\d) ([ap]m)".r
 	    val pattern(hour, minute, period) = s;
 
 	    new Time(hour.toInt, minute.toInt, Period.parse(period))
@@ -80,16 +80,6 @@ class Clock extends App{
 				CommandContinue
 			}
 
-			def RAISE_TO_POWER(n: Int) = {
-				if(setLine){
-					lineBuilder setNumber n
-					lineBuilder setOp ClockOps.RAISE
-					timeSlot addLine lineBuilder
-					currentOp = ClockOps.RAISE
-				}
-				CommandContinue
-			}
-
 			def MODULUS(n: Int) = {
 				if(setLine){
 					lineBuilder setNumber n
@@ -100,52 +90,12 @@ class Clock extends App{
 				CommandContinue
 			}
 
-			def GREATER_THAN(n: Int) = {
+			def RAISE_TO_POWER(n: Int) = {
 				if(setLine){
 					lineBuilder setNumber n
-					lineBuilder setOp ClockOps.GREATER 
+					lineBuilder setOp ClockOps.RAISE
 					timeSlot addLine lineBuilder
-					currentOp = ClockOps.GREATER
-				}
-				CommandContinue
-			}
-
-			def GREATER_THAN_EQUAL(n: Int) = {
-				if(setLine){
-					lineBuilder setNumber n
-					lineBuilder setOp ClockOps.GREATER_EQUAL
-					timeSlot addLine lineBuilder
-					currentOp = ClockOps.GREATER_EQUAL
-				}
-				CommandContinue
-			}
-
-			def LESS_THAN(n: Int) = {
-				if(setLine){
-					lineBuilder setNumber n
-					lineBuilder setOp ClockOps.LESS
-					timeSlot addLine lineBuilder
-					currentOp = ClockOps.LESS
-				}
-				CommandContinue
-			}
-
-			def LESS_THAN_EQUAL(n: Int) = {
-				if(setLine){
-					lineBuilder setNumber n
-					lineBuilder setOp ClockOps.LESS_EQUAL
-					timeSlot addLine lineBuilder
-					currentOp = ClockOps.LESS_EQUAL
-				}
-				CommandContinue
-			}
-
-			def EQUAL(n: Int) = {
-				if(setLine){
-					lineBuilder setNumber n
-					lineBuilder setOp ClockOps.EQUAL
-					timeSlot addLine lineBuilder
-					currentOp = ClockOps.EQUAL
+					currentOp = ClockOps.RAISE
 				}
 				CommandContinue
 			}
@@ -211,6 +161,7 @@ class Clock extends App{
 				CommandContinue
 			}
 
+			// mathematical operations using random values
 			def ADD_RANDOM() = {
 				if(setLine){
 					val n = rand.nextInt
@@ -266,6 +217,78 @@ class Clock extends App{
 				RandomContinue
 			}
 
+			// negates current number, making it negative if positive, or vice versa
+			def NEGATE() = {
+				if(setLine){
+					lineBuilder setOp ClockOps.NEGATION
+					timeSlot addLine lineBuilder
+					currentOp = ClockOps.NEGATION
+				}
+				CommandContinue
+			}
+
+			// comparator operations using ints
+			def GREATER_THAN(n: Int) = {
+				if(setLine){
+					lineBuilder setNumber n
+					lineBuilder setOp ClockOps.GREATER 
+					timeSlot addLine lineBuilder
+					currentOp = ClockOps.GREATER
+				}
+				CommandContinue
+			}
+
+			def GREATER_THAN_EQUAL(n: Int) = {
+				if(setLine){
+					lineBuilder setNumber n
+					lineBuilder setOp ClockOps.GREATER_EQUAL
+					timeSlot addLine lineBuilder
+					currentOp = ClockOps.GREATER_EQUAL
+				}
+				CommandContinue
+			}
+
+			def LESS_THAN(n: Int) = {
+				if(setLine){
+					lineBuilder setNumber n
+					lineBuilder setOp ClockOps.LESS
+					timeSlot addLine lineBuilder
+					currentOp = ClockOps.LESS
+				}
+				CommandContinue
+			}
+
+			def LESS_THAN_EQUAL(n: Int) = {
+				if(setLine){
+					lineBuilder setNumber n
+					lineBuilder setOp ClockOps.LESS_EQUAL
+					timeSlot addLine lineBuilder
+					currentOp = ClockOps.LESS_EQUAL
+				}
+				CommandContinue
+			}
+
+			def EQUAL(n: Int) = {
+				if(setLine){
+					lineBuilder setNumber n
+					lineBuilder setOp ClockOps.EQUAL
+					timeSlot addLine lineBuilder
+					currentOp = ClockOps.EQUAL
+				}
+				CommandContinue
+			}
+
+			def NOT_EQUAL(n: Int) = {
+				if(setLine){
+					lineBuilder setNumber n
+					lineBuilder setOp ClockOps.NOT_EQUAL
+					timeSlot addLine lineBuilder
+					currentOp = ClockOps.NOT_EQUAL
+				}
+				CommandContinue
+			}
+
+			// comparators using doubles
 			def GREATER_THAN(n: Double) = {
 				if(setLine){
 					lineBuilder setNumber n
@@ -316,15 +339,17 @@ class Clock extends App{
 				CommandContinue
 			}
 
-			def NEGATE() = {
+			def NOT_EQUAL(n: Double) = {
 				if(setLine){
-					lineBuilder setOp ClockOps.NEGATION
+					lineBuilder setNumber n
+					lineBuilder setOp ClockOps.NOT_EQUAL_D
 					timeSlot addLine lineBuilder
-					currentOp = ClockOps.NEGATION
+					currentOp = ClockOps.NOT_EQUAL_D
 				}
 				CommandContinue
 			}
 
+			// booleans operations
 			def AND(b: Boolean) = {
 				if(setLine){
 					lineBuilder setBool b
@@ -344,7 +369,7 @@ class Clock extends App{
 				}
 				CommandContinue
 			}
-
+			// not the boolean that is passed in and sets it as the current Boolean
 			def NOT(b: Boolean) = {
 				if(setLine){
 					lineBuilder setBool b
@@ -354,7 +379,7 @@ class Clock extends App{
 				}
 				CommandContinue
 			}
-
+			// not the current Boolean
 			def NOT_CURRENT() = {
 				if(setLine){
 					lineBuilder setOp ClockOps.NOT_CURRENT
@@ -364,6 +389,7 @@ class Clock extends App{
 				CommandContinue
 			}
 
+			// String operations
 			def APPEND_STRING(s: String) = {				
 				if(setLine) {
 					lineBuilder setString s
@@ -414,6 +440,7 @@ class Clock extends App{
 				CommandContinue
 			}
 
+			// output operations, output the current number/string/boolean
 			def OUTPUT_INT() = {
 				if(setLine){
 					lineBuilder setOp ClockOps.OUTPUT_INT
@@ -450,6 +477,7 @@ class Clock extends App{
 				CommandContinue
 			}
 
+			// Set the bounds for random numbers if desired
 			object RandomContinue {
 				def BETWEEN(lowerBound: Int) = {
 					timeSlot removeLine;
@@ -470,34 +498,42 @@ class Clock extends App{
 				}
 			}
 
-			var loopTimes = 0
+			var loopTimes = 0 // value used in looping
 
+			// optional loops and conditionals
 			object CommandContinue {
+				// FOR sets up a for loop that can continue for minutes or hours as indicated by the user
 				def FOR(n: Int) = {
 					loopTimes = n
 					ForContinue
 			    }
 
+			    // UNTIL is a while loop that continues until the time indicated exclusive
 			    def UNTIL(t: Time) = {
-			    	while(currTime < t){
-			    		currTime++;
+			    	currTime++;
+			    	while(currTime < t){			    		
 			    		timeSlot setTime currTime
 			    		lineBuilder setOp currentOp
 			    		timeSlot addLine lineBuilder
+			    		currTime++
 				    }
-				    setLine = true
+				    // setLine is set to true since the loops are at the end of the line, allows the following commands to run
+				    setLine = true 
 			    }
 
+			    // THROUGH is a while loop that continues through the time indicated inclusive
 			    def THROUGH(t: Time) = {
-			    	while(currTime <= t){
-			    		currTime++;
+			    	currTime++;
+			    	while(currTime <= t){			    		
 			    		timeSlot setTime currTime
 			    		lineBuilder setOp currentOp
 			    		timeSlot addLine lineBuilder
+			    		currTime++
 				    }
 				    setLine = true
 			    }
 
+			    // handles FOR loops, using minutes or hours as indicated by the user
 			    object ForContinue{
 			    	def MINUTES() = {
 			    		var a = 0
@@ -533,6 +569,7 @@ class Clock extends App{
 			    	}
 			    }
 
+			    // Conditionals
 			    def IF_NUMBER_GREATER_THAN(n: Int) = {
 		    		setLine = !(timeSlot.currentNumber > n)
 		    		if (setLine){
@@ -581,6 +618,15 @@ class Clock extends App{
 		    		IfContinue
 			    }
 
+			    def IF_BOOLEAN() = {
+			    	setLine = !timeSlot.currentBoolean
+			    	if (setLine){
+			    		timeSlot removeLine
+			    	}
+			    	IfContinue
+			    }
+
+			    // ELSE sets a new command to be executed if the condition is false
 			    object IfContinue {
 			    	def ELSE() = {
 			    		AtContinue
@@ -591,8 +637,31 @@ class Clock extends App{
 	    
 	}
 
+	// runs program
 	def RUN = {
-		timeSlot runProgram
+		timeSlot runProgram;
+		RunFor
+	}
+
+	object RunFor {
+		def FOR(n: Int) = {
+			new DaysContinue(n)
+		}
+
+		class DaysContinue(n: Int) {
+			def DAYS() = {
+				var num = n
+				while(num > 1){
+					num -= 1
+					timeSlot runProgram					
+				}
+			}
+		}
+	}
+
+	// resets the timeTable so that a new program can be set
+	def CLEAR = {
+		timeSlot clearTimeTable
 	}
 
 	// Time objects are used to control the flow of execution
@@ -601,7 +670,7 @@ class Clock extends App{
 		var minute: Int = m
 		var period: Period = p
 
-		// comparator methods that compares 2 Time objects
+		// comparator methods that compare 2 Time objects
 		override def equals(that: Any): Boolean = 
 			that match{
 				case that: Time => this.hour == that.hour && this.minute == that.minute && this.period == that.period
@@ -630,6 +699,8 @@ class Clock extends App{
   				case that: Time => !(this < that)
   				case _ => false
   			}
+
+  		// ++ method allows for easy time incrementation
   		def ++(): Time = {
   			if (minute == 59){
 				minute = 0
@@ -655,7 +726,9 @@ class Clock extends App{
 			result = (prime * hour) + minute
 			return result
 		}
-		override def toString() : String = (s"TIME " + hour + ":" + minute + " " + period)	    
+		// toString method used to print current Time, mostly used for testing
+		override def toString() : String = 
+			if(minute > 9) (s"TIME " + hour + ":" + minute + " " + period) else (s"TIME " + hour + ":0" + minute + " " + period)
 	}
 	// Period class distinguishes am and pm for Time objects, helps control execution flow
 	abstract class Period {
@@ -678,15 +751,10 @@ class Clock extends App{
 		var currentNumber = 0.0
 		var currentBoolean = false
 		var currentString = ""
-		//var startTime = new Time(12, 1, Period.parse("am"))
-		//var endTime = new Time(11, 59, Period.parse("pm"))
 
 		// HashMap that holds the commands for each time
 		val timeTable = new HashMap[Time, ClockOp]
 
-		/*def setStartTime(newTime: Time) = {
-			startTime = newTime
-		}*/
 		// sets the Time for the next incoming command
 		def setTime(newTime: Time) = {
 			currentTime = new Time(newTime.hour, newTime.minute, newTime.period)
@@ -696,10 +764,20 @@ class Clock extends App{
 			val line = lineBuilder.returnLine
 			timeTable += Tuple2(currentTime, line)
 		}
-		//removes last line added in conditionals
+		// removes last line added in conditionals
 		def removeLine() = {
 			timeTable -= currentTime
 		}
+
+		// clears the timeTable and resets the current values so that a new program can be set
+		def clearTimeTable() = {			
+			currentTime = new Time(12, 1, Period.parse("am"))
+			currentNumber = 0.0
+			currentBoolean = false
+			currentString = ""
+			timeTable.clear
+		}
+
 		// runs the program, executing commands in order of Time, like a clock, beginning at 12:00 am
 		def runProgram() = {
 			var hour = 12
@@ -735,6 +813,7 @@ class Clock extends App{
 					    case ClockLess(num: Int) => currentBoolean = currentNumber < num.toDouble
 					    case ClockLessEqual(num: Int) => currentBoolean = currentNumber <= num.toDouble
 					    case ClockEqual(num: Int) => currentBoolean = currentNumber == num.toDouble
+					    case ClockNotEqual(num: Int) => currentBoolean = currentNumber != num.toDouble
 
 					    // Comparators for doubles
 					    case ClockGreaterD(num: Double) => currentBoolean = currentNumber > num
@@ -742,9 +821,10 @@ class Clock extends App{
 					    case ClockLessD(num: Double) => currentBoolean = currentNumber < num
 					    case ClockLessEqualD(num: Double) => currentBoolean = currentNumber <= num
 					    case ClockEqualD(num: Double) => currentBoolean = currentNumber == num
+					    case ClockNotEqualD(num: Double) => currentBoolean = currentNumber != num
 
 					    // Negates current number
-					    case ClockNegation() => currentNumber = -currentNumber
+					    case ClockNegation() => currentNumber *= -1
 
 					    // Boolean operations
 					    case ClockAnd(bool: Boolean) => currentBoolean &= bool

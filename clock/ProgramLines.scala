@@ -18,7 +18,6 @@ class ProgramLines{
 	var currentNumber = 0.0
 	var currentBool = false
 	var currentString = ""
-	var currentChar: Char = ''
 
 	def setNumber(newNum: Int){
 		currentNumber = newNum.toDouble
@@ -60,12 +59,14 @@ class ProgramLines{
 			case LESS => lineToReturn = ClockLess(currentNumber.toInt)
 			case LESS_EQUAL => lineToReturn = ClockLessEqual(currentNumber.toInt)
 			case EQUAL => lineToReturn = ClockEqual(currentNumber.toInt)
+			case NOT_EQUAL => lineToReturn = ClockNotEqual(currentNumber.toInt)
 
 			case GREATER_D => lineToReturn = ClockGreaterD(currentNumber)
 			case GREATER_EQUAL_D => lineToReturn = ClockGreaterEqualD(currentNumber)
 			case LESS_D => lineToReturn = ClockLessD(currentNumber)
 			case LESS_EQUAL_D => lineToReturn = ClockLessEqualD(currentNumber)
 			case EQUAL_D => lineToReturn = ClockEqualD(currentNumber)
+			case NOT_EQUAL_D => lineToReturn = ClockNotEqualD(currentNumber)
 
 			case NEGATION => lineToReturn = ClockNegation()
 

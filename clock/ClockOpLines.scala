@@ -25,12 +25,14 @@ object ClockOpLines {
   case class ClockLess(num: Int) extends ClockOp
   case class ClockLessEqual(num: Int) extends ClockOp
   case class ClockEqual(num: Int) extends ClockOp
+  case class ClockNotEqual(num: Int) extends ClockOp
 
   case class ClockGreaterD(num: Double) extends ClockOp
   case class ClockGreaterEqualD(num: Double) extends ClockOp
   case class ClockLessD(num: Double) extends ClockOp
   case class ClockLessEqualD(num: Double) extends ClockOp
   case class ClockEqualD(num: Double) extends ClockOp
+  case class ClockNotEqualD(num: Double) extends ClockOp
 
   case class ClockNegation() extends ClockOp
 
