@@ -25,47 +25,13 @@ object TimeTests extends Clock{
 
 	AT ("1:40 am") MULTIPLY_BY 2.5;
 
-	AT ("2:03 am") NEGATE;
+	AT ("2:03 am") NEGATE; // Command gets overwritten by loop at line 54
 
 	AT ("2:00 am") NEGATE;
 
 	AT ("2:15 am") ADD 2 FOR 2 HOURS;
 
 	AT ("4:30 am") SUBTRACT 1 FOR 1 HOUR;
-	
-	// Boolean functions
-	AT ("9:15 am") GREATER_THAN 10;
-	
-	AT ("9:45 am") LESS_THAN_EQUAL 10.0;
-	
-	AT ("10:15 am") NOT_CURRENT;
-	
-	AT ("10:45 am") NOT true;
-	
-	AT ("11:15 am") OR (true || false);
-
-	AT ("12:15 am") EQUAL 15.75;
-
-	AT ("11:30 am") AND(5 > 10);
-
-	AT ("11:45 am") NOT_EQUAL 50;
-
-	// String manipulation
-	AT ("2:00 pm") APPEND_STRING "is ";
-	
-	AT ("2:20 pm") PREPEND_STRING "This ";
-	
-	AT ("2:10 pm") APPEND_STRING "a string, yo ";
-	
-	AT ("2:15 pm") REMOVE_STRING_END 4;
-	
-	AT ("2:05 pm") PREPEND_STRING "sure ";
-
-	AT ("2:22 pm") PREPEND_STRING "Yes, ";
-
-	AT ("2:26 pm") REMOVE_STRING_BEGINNING 5;	
-
-	AT ("3:00 pm") APPEND_STRING "This is a new string " IF_NUMBER_LESS_THAN 1 ELSE() REMOVE_STRING_END 7 FOR 2 MINUTES;
 
 	AT ("12:06 am") OUTPUT_INT; // Result = 10
 
@@ -91,7 +57,24 @@ object TimeTests extends Clock{
 
 	AT ("5:35 am") OUTPUT_DOUBLE;
 
-	//AT ("2:03 am") NEGATE;
+	//AT ("2:03 am") NEGATE; // Command interrupts loop at line 54
+	
+	// Boolean functions
+	AT ("9:15 am") GREATER_THAN 10;
+	
+	AT ("9:45 am") LESS_THAN_EQUAL 10.0;
+	
+	AT ("10:15 am") NOT_CURRENT;
+	
+	AT ("10:45 am") NOT true;
+	
+	AT ("11:15 am") OR (true || false);
+
+	AT ("12:15 am") EQUAL 15.75;
+
+	AT ("11:30 am") AND(5 > 10);
+
+	AT ("11:45 am") NOT_EQUAL 50;
 
 	AT ("9:30 am") OUTPUT_BOOLEAN;
 	
@@ -105,13 +88,32 @@ object TimeTests extends Clock{
 
 	AT ("11:35 am") OUTPUT_BOOLEAN;
 
-	AT ("12:00 pm") OUTPUT_BOOLEAN() FOR 5 MINUTES;
+	AT ("12:00 pm") OUTPUT_BOOLEAN() FOR 3 MINUTES;
 
 	AT ("12:30 pm") OUTPUT_BOOLEAN;
 
+	// String manipulation
+	AT ("2:00 pm") APPEND_STRING "is ";
+	
+	AT ("2:20 pm") PREPEND_STRING "This ";
+	
+	AT ("2:10 pm") APPEND_STRING "a string, yo ";
+	
+	AT ("2:15 pm") REMOVE_STRING_END 5;
+	
+	AT ("2:05 pm") PREPEND_STRING "sure ";
+
+	AT ("2:22 pm") PREPEND_STRING "Yes, ";
+
+	AT ("2:26 pm") REMOVE_STRING_BEGINNING 5;	
+
+	AT ("3:00 pm") APPEND_STRING "This is a new string " IF_NUMBER_GREATER_THAN 10 ELSE() REMOVE_STRING_END 2;
+
 	AT ("2:25 pm") OUTPUT_STRING;
 
-	AT ("2:30 pm") OUTPUT_STRING() FOR 5 MINUTES;
+	AT ("2:12 pm") OUTPUT_STRING;
+
+	AT ("2:30 pm") OUTPUT_STRING() FOR 3 MINUTES;
 
 	AT ("3:05 pm") OUTPUT_STRING() FOR 2 MINUTES;
 	
